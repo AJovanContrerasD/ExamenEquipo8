@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title> <ui:insert name="titulo"> SAUAP </ui:insert> </title>
+    <style>
+        body{
+            font-family: Arial;
+            background-color: #4F9D69;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 80px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25);
+            background-color: #FFFDF9;
+            position: relative;
+            z-index: 10;
+        }
+        #titleDiv{
+            padding-left: 2%;
+        }
+        #menu{
+            padding-left: 2%;
+        }
+        #titulo{
+            text-align: left;
+            font-size:25px;
+            font-weight: bold;
+            background: -webkit-linear-gradient(270deg, #29c551, #8effc1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        #subtitulo{
+            font-size:16px;
+            text-align: left;
+            font-weight: normal;
+            color: #5da180;
+        }
+        #btnMenu{
+            width: 30px;
+            height: 30px;
+        }
+        #contenedorPrincipal{
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        #sidebar{
+            width: 200px;
+            background-color: #4FA974;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+        #sidebar.hidden{
+            margin-left: -230px;
+        }
+        #sidebar button{
+            padding: 8px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            background-color: #FFFDF9;
+            color: #21bd6e;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.25);
+            transition: 0.2s;
+        }
+        #sidebar button:hover{
+            background-color: #f6f6f6;
+            color: #4FA974;
+            transform: translateY(-2px);
+        }
+        #contenido{
+            flex: 1;
+            padding: 20px;
+            overflow: auto;
+            background-color: #F7F9F4;
+        }
+        #datos{
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 18px;
+            padding: 4% 15%;
+        }
+        .filaDoble{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .filaTriple{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        .fieldLarge{
+            width: 100%;
+            height: 35px;
+
+            border: 2px solid #bfbfbf;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.01);
+            border-radius: 15px;
+            font-size: 15px;
+        }
+        .fieldSmall,
+        .fieldSelect{
+            width: 100%;
+            flex: 1;
+            height: 35px;
+            border-radius: 15px;
+            border: 2px solid #bfbfbf;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.01);
+            font-size: 14px;
+        }
+        #btnAgregar{
+            background-color: #4FA974;
+            color: white;
+            height: 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            transition: 0.2s;
+            border: none;
+            margin-left: 20%;
+            margin-right: 20%;
+
+        }
+
+        #btnAgregar:hover{
+            background-color: #3dd666;
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function abrirSidebar(){
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+    </script>
+</h:head>
+<h:body>
+    <header>
+        <div id="menu"> <button id="btnMenu" onclick="abrirSidebar()"> </button> </div>
+        <div id="logo"> </div>
+        <div id="titleDiv">
+            <div id="titulo"> SAUAP </div>
+            <div id="subtitulo"> <ui:insert name="subtitulo"> Subtitulo </ui:insert> </div>
+        </div>
+    </header>
+
+    <div id="contenedorPrincipal">
+        <div id="sidebar">
+            <button type="button" id="seccion" onclick="window.location.href=''"> Inicio </button>
+            <button type="button" id="seccion" onclick="window.location.href=''"> Profesores </button>
+            <button type="button" id="seccion" onclick="window.location.href=''"> Materias </button>
+            <button type="button" id="seccion" onclick="window.location.href=''"> Asignaciones </button>
+        </div>
+        <div id="contenido">
+            <ui:insert name="contenido">
+
+            </ui:insert>
+        </div>
+    </div>
+
+</h:body>
+</html>
