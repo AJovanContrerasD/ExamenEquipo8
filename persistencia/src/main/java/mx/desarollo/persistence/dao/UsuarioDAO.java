@@ -18,6 +18,7 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         return entityManager
                 .createQuery("SELECT u FROM Usuario u", Usuario.class)
                 .getResultList();
+        //Hola
     }
 
     @Override
