@@ -6,13 +6,12 @@
 package ui;
 
 import helper.LoginHelper;
-import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
-import mx.avanti.entidad.Usuario;
+import mx.desarrollo.entity.Administrador;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,7 +20,7 @@ import java.io.Serializable;
 @SessionScoped
 public class LoginBeanUI implements Serializable{
     private LoginHelper loginHelper;
-    private Usuario usuario;
+    private Administrador usuario;
     
     public LoginBeanUI() {
         loginHelper = new LoginHelper();
@@ -33,19 +32,19 @@ public class LoginBeanUI implements Serializable{
      */
     @PostConstruct
     public void init(){
-        usuario= new Usuario();
+        usuario= new Administrador();
     }
 
      public void login() throws IOException{
         String appURL = "/index.xhtml";
         // los atributos de usuario vienen del xhtml 
-        Usuario us= new Usuario();
-        us.setId(0);
-        us = loginHelper.Login(usuario.getCorreo(), usuario.getContrasena());
-          if(us != null && us.getId()!=null){
-            // asigno el usuario encontrado al usuario de esta clase para que 
+        Administrador ad= new Administrador();
+        ad.setId(0);
+        ad = loginHelper.Login(usuario.getUsuario(), usuario.getContrasena());
+          if(ad != null && ad.getId()!=null){
+            // asigno el administrador encontrado al usuario de esta clase para que 
             // se muestre correctamente en la pagina de informacion
-            usuario=us;
+            usuario=ad;
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + appURL);
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña incorrecta:", "Intente de nuevo"));
@@ -55,11 +54,11 @@ public class LoginBeanUI implements Serializable{
     
     /* getters y setters*/
 
-    public Usuario getUsuario() {
+    public Administrador getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Administrador usuario) {
         this.usuario = usuario;
     }
     

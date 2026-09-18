@@ -1,22 +1,24 @@
 package mx.desarrollo.persistence.dao;
 
 import jakarta.persistence.EntityManager;
-import mx.desarrollo.entity.Usuario;
+import mx.desarrollo.entity.Administrador;
 import mx.desarrollo.persistence.persistence.AbstractDAO;
+
 
 import java.util.List;
 
-public class UsuarioDAO extends AbstractDAO<Usuario> {
+
+public class AdministradorDAO extends AbstractDAO<Administrador> {
     private final EntityManager entityManager;
 
-    public UsuarioDAO(EntityManager em) {
-        super(Usuario.class);
+    public AdministradorDAO(EntityManager em) {
+        super(Administrador.class);
         this.entityManager = em;
     }
 
-    public List<Usuario> obtenerTodos(){
+    public List<Administrador> obtenerTodos(){
         return entityManager
-                .createQuery("SELECT u FROM Usuario u", Usuario.class)
+                .createQuery("SELECT a FROM Administrador a", Administrador.class)
                 .getResultList();
     }
 
