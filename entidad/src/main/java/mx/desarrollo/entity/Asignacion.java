@@ -17,17 +17,17 @@ public class Asignacion {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idprofesor", nullable = false)
-    private Profesor idprofesor;
+    private Profesor idProfesor;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idunidad", nullable = false)
-    private UnidadAprendizaje idunidad;
+    private UnidadAprendizaje idUnidad;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador idadministrador;
+    private Administrador idAdministrador;
 
     @Size(max = 10)
     @NotNull
@@ -42,15 +42,15 @@ public class Asignacion {
     @Size(max = 15)
     @NotNull
     @Column(name = "diasemana", nullable = false, length = 15)
-    private String diasemana;
+    private String diaSemana;
 
     @NotNull
     @Column(name = "horainicio", nullable = false)
-    private LocalTime horainicio;
+    private LocalTime horaInicio;
 
     @NotNull
     @Column(name = "horafin", nullable = false)
-    private LocalTime horafin;
+    private LocalTime horaFin;
 
     public Integer getId() {
         return id;
@@ -60,28 +60,28 @@ public class Asignacion {
         this.id = id;
     }
 
-    public Profesor getIdprofesor() {
-        return idprofesor;
+    public Profesor getIdProfesor() {
+        return idProfesor;
     }
 
-    public void setIdprofesor(Profesor idprofesor) {
-        this.idprofesor = idprofesor;
+    public void setIdProfesor(Profesor idProfesor) {
+        this.idProfesor = idProfesor;
     }
 
-    public UnidadAprendizaje getIdunidad() {
-        return idunidad;
+    public UnidadAprendizaje getIdUnidad() {
+        return idUnidad;
     }
 
-    public void setIdunidad(UnidadAprendizaje idunidad) {
-        this.idunidad = idunidad;
+    public void setIdUnidad(UnidadAprendizaje idUnidad) {
+        this.idUnidad = idUnidad;
     }
 
-    public Administrador getIdadministrador() {
-        return idadministrador;
+    public Administrador getIdAdministrador() {
+        return idAdministrador;
     }
 
-    public void setIdadministrador(Administrador idadministrador) {
-        this.idadministrador = idadministrador;
+    public void setIdAdministrador(Administrador idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
     public String getGrupo() {
@@ -100,28 +100,28 @@ public class Asignacion {
         this.semestre = semestre;
     }
 
-    public String getDiasemana() {
-        return diasemana;
+    public String getDiaSemana() {
+        return diaSemana;
     }
 
-    public void setDiasemana(String diasemana) {
-        this.diasemana = diasemana;
+    public void setDiaSemana(String diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
-    public LocalTime getHorainicio() {
-        return horainicio;
+    public LocalTime getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHorainicio(LocalTime horainicio) {
-        this.horainicio = horainicio;
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHorafin() {
-        return horafin;
+    public LocalTime getHoraFin() {
+        return horaFin;
     }
 
-    public void setHorafin(LocalTime horafin) {
-        this.horafin = horafin;
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
     }
 
 }
