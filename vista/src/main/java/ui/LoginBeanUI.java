@@ -5,6 +5,7 @@
  */
 package ui;
 
+
 import helper.LoginHelper;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 
 @Named("loginUI")
 @SessionScoped
-public class LoginBeanUI implements Serializable{
+public class LoginBeanUI implements Serializable {
     private LoginHelper loginHelper;
     private Administrador usuario;
     
@@ -35,7 +36,7 @@ public class LoginBeanUI implements Serializable{
         usuario= new Administrador();
     }
 
-     public void login() throws IOException{
+     public void login() throws IOException {
         String appURL = "/index.xhtml";
         // los atributos de usuario vienen del xhtml 
         Administrador ad= new Administrador();
