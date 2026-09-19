@@ -6,8 +6,10 @@
 package helper;
 
 
-import integration.ServiceFacadeLocator;
-import mx.avanti.entidad.Usuario;
+
+
+import mx.desarrollo.entity.Usuario;
+import mx.desarrollo.integration.ServiceFacadeLocator;
 
 import java.io.Serializable;
 

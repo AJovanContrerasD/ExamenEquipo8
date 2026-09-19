@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mx.desarollo.persistence.integration;
+package mx.desarrollo.persistence.integration;
+
 
 import jakarta.persistence.EntityManager;
-import mx.avanti.desarollo.dao.*;
-import mx.avanti.desarollo.persistence.HibernateUtil;
-
+import mx.desarrollo.persistence.dao.AlumnoDAO;
+import mx.desarrollo.persistence.dao.UsuarioDAO;
+import mx.desarrollo.persistence.persistence.HibernateUtil;
 
 /**
  *

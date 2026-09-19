@@ -1,4 +1,4 @@
-package mx.avanti.desarrollo.facade;
+package mx.desarrollo.facade;
 
 import mx.desarrollo.delegate.DelegateAlumno;
 import mx.desarrollo.entity.Alumno;

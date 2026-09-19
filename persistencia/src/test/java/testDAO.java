@@ -1,9 +1,6 @@
-
-import mx.avanti.desarollo.dao.AlumnoDAO;
-import mx.avanti.desarollo.persistence.HibernateUtil;
-import mx.avanti.entidad.Alumno;
-
-import java.util.List;
+import mx.desarrollo.entity.Alumno;
+import mx.desarrollo.persistence.dao.AlumnoDAO;
+import mx.desarrollo.persistence.persistence.HibernateUtil;
 
 public class testDAO {
 

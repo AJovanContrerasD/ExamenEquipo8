@@ -1,7 +1,7 @@
 package mx.desarrollo.delegate;
 
 import mx.desarrollo.entity.Alumno;
-import mx.desarrollo.integration.ServiceLocator;
+import mx.desarrollo.persistence.integration.ServiceLocator;
 
 public class DelegateAlumno {
     public void saveAlumno(Alumno alumno){
