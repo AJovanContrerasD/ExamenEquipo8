@@ -38,10 +38,10 @@ public class Profesor {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador idadministrador;
+    private Administrador idAdministrador;
 
-    @OneToMany(mappedBy = "idprofesor")
-    private Set<Asignacion> asignacions = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idProfesor")
+    private Set<Asignacion> asignaciones = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -83,20 +83,20 @@ public class Profesor {
         this.rfc = rfc;
     }
 
-    public Administrador getIdadministrador() {
-        return idadministrador;
+    public Administrador getIdAdministrador() {
+        return idAdministrador;
     }
 
-    public void setIdadministrador(Administrador idadministrador) {
-        this.idadministrador = idadministrador;
+    public void setIdAdministrador(Administrador idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
-    public Set<Asignacion> getAsignacions() {
-        return asignacions;
+    public Set<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
 
-    public void setAsignacions(Set<Asignacion> asignacions) {
-        this.asignacions = asignacions;
+    public void setAsignaciones(Set<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
 }

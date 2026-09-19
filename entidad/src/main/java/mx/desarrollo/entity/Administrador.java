@@ -40,14 +40,14 @@ public class Administrador {
     @Column(name = "contrasena", nullable = false, length = 45)
     private String contrasena;
 
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<Asignacion> asignacions = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAdministrador")
+    private Set<Profesor> profesores = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<Profesor> profesors = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAdministrador")
+    private Set<UnidadAprendizaje> unidades = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<UnidadAprendizaje> unidadAprendizajes = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAdministrador")
+    private Set<Asignacion> asignaciones = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -97,28 +97,28 @@ public class Administrador {
         this.contrasena = contrasena;
     }
 
-    public Set<Asignacion> getAsignacions() {
-        return asignacions;
+    public Set<Profesor> getProfesores() {
+        return profesores;
     }
 
-    public void setAsignacions(Set<Asignacion> asignacions) {
-        this.asignacions = asignacions;
+    public void setProfesores(Set<Profesor> profesores) {
+        this.profesores = profesores;
     }
 
-    public Set<Profesor> getProfesors() {
-        return profesors;
+    public Set<UnidadAprendizaje> getUnidades() {
+        return unidades;
     }
 
-    public void setProfesors(Set<Profesor> profesors) {
-        this.profesors = profesors;
+    public void setUnidades(Set<UnidadAprendizaje> unidades) {
+        this.unidades = unidades;
     }
 
-    public Set<UnidadAprendizaje> getUnidadAprendizajes() {
-        return unidadAprendizajes;
+    public Set<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
 
-    public void setUnidadAprendizajes(Set<UnidadAprendizaje> unidadAprendizajes) {
-        this.unidadAprendizajes = unidadAprendizajes;
+    public void setAsignaciones(Set<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
 }
