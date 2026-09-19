@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "profesor")
-public class Profesor_RP {
+public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idprofesor", nullable = false)
@@ -38,10 +38,10 @@ public class Profesor_RP {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador_RP idadministrador;
+    private Administrador idAdministrador;
 
-    @OneToMany(mappedBy = "idprofesor")
-    private Set<Asignacion_RP> asignacions = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idProfesor")
+    private Set<Asignacion> asignaciones = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -83,20 +83,20 @@ public class Profesor_RP {
         this.rfc = rfc;
     }
 
-    public Administrador_RP getIdadministrador() {
-        return idadministrador;
+    public Administrador getIdAdministrador() {
+        return idAdministrador;
     }
 
-    public void setIdadministrador(Administrador_RP idadministrador) {
-        this.idadministrador = idadministrador;
+    public void setIdAdministrador(Administrador idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
-    public Set<Asignacion_RP> getAsignacions() {
-        return asignacions;
+    public Set<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
 
-    public void setAsignacions(Set<Asignacion_RP> asignacions) {
-        this.asignacions = asignacions;
+    public void setAsignaciones(Set<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
 }

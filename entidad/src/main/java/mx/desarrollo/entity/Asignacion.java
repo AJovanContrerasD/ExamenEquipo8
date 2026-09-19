@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "asignacion")
-public class Asignacion_RP {
+public class Asignacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idasignacion", nullable = false)
@@ -17,17 +17,17 @@ public class Asignacion_RP {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idprofesor", nullable = false)
-    private Profesor_RP idprofesor;
+    private Profesor idProfesor;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idunidad", nullable = false)
-    private UnidadAprendizaje_RP idunidad;
+    private UnidadAprendizaje idUnidad;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador_RP idadministrador;
+    private Administrador idAdministrador;
 
     @Size(max = 10)
     @NotNull
@@ -42,15 +42,15 @@ public class Asignacion_RP {
     @Size(max = 15)
     @NotNull
     @Column(name = "diasemana", nullable = false, length = 15)
-    private String diasemana;
+    private String diaSemana;
 
     @NotNull
     @Column(name = "horainicio", nullable = false)
-    private LocalTime horainicio;
+    private LocalTime horaInicio;
 
     @NotNull
     @Column(name = "horafin", nullable = false)
-    private LocalTime horafin;
+    private LocalTime horaFin;
 
     public Integer getId() {
         return id;
@@ -60,28 +60,28 @@ public class Asignacion_RP {
         this.id = id;
     }
 
-    public Profesor_RP getIdprofesor() {
-        return idprofesor;
+    public Profesor getIdProfesor() {
+        return idProfesor;
     }
 
-    public void setIdprofesor(Profesor_RP idprofesor) {
-        this.idprofesor = idprofesor;
+    public void setIdProfesor(Profesor idProfesor) {
+        this.idProfesor = idProfesor;
     }
 
-    public UnidadAprendizaje_RP getIdunidad() {
-        return idunidad;
+    public UnidadAprendizaje getIdUnidad() {
+        return idUnidad;
     }
 
-    public void setIdunidad(UnidadAprendizaje_RP idunidad) {
-        this.idunidad = idunidad;
+    public void setIdUnidad(UnidadAprendizaje idUnidad) {
+        this.idUnidad = idUnidad;
     }
 
-    public Administrador_RP getIdadministrador() {
-        return idadministrador;
+    public Administrador getIdAdministrador() {
+        return idAdministrador;
     }
 
-    public void setIdadministrador(Administrador_RP idadministrador) {
-        this.idadministrador = idadministrador;
+    public void setIdAdministrador(Administrador idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
     public String getGrupo() {
@@ -100,28 +100,28 @@ public class Asignacion_RP {
         this.semestre = semestre;
     }
 
-    public String getDiasemana() {
-        return diasemana;
+    public String getDiaSemana() {
+        return diaSemana;
     }
 
-    public void setDiasemana(String diasemana) {
-        this.diasemana = diasemana;
+    public void setDiaSemana(String diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
-    public LocalTime getHorainicio() {
-        return horainicio;
+    public LocalTime getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHorainicio(LocalTime horainicio) {
-        this.horainicio = horainicio;
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHorafin() {
-        return horafin;
+    public LocalTime getHoraFin() {
+        return horaFin;
     }
 
-    public void setHorafin(LocalTime horafin) {
-        this.horafin = horafin;
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
     }
 
 }

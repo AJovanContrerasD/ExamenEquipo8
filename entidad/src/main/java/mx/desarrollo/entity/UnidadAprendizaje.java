@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "unidad_aprendizaje")
-public class UnidadAprendizaje_RP {
+public class UnidadAprendizaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idunidad", nullable = false)
@@ -22,23 +22,23 @@ public class UnidadAprendizaje_RP {
 
     @NotNull
     @Column(name = "horasclase", nullable = false)
-    private Integer horasclase;
+    private Integer horasClase;
 
     @NotNull
     @Column(name = "horastaller", nullable = false)
-    private Integer horastaller;
+    private Integer horasTaller;
 
     @NotNull
     @Column(name = "horaslaboratorio", nullable = false)
-    private Integer horaslaboratorio;
+    private Integer horasLaboratorio;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador_RP idadministrador;
+    private Administrador idAdministrador;
 
-    @OneToMany(mappedBy = "idunidad")
-    private Set<Asignacion_RP> asignacions = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idUnidad")
+    private Set<Asignacion> asignaciones = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -56,44 +56,44 @@ public class UnidadAprendizaje_RP {
         this.nombre = nombre;
     }
 
-    public Integer getHorasclase() {
-        return horasclase;
+    public Integer getHorasClase() {
+        return horasClase;
     }
 
-    public void setHorasclase(Integer horasclase) {
-        this.horasclase = horasclase;
+    public void setHorasClase(Integer horasClase) {
+        this.horasClase = horasClase;
     }
 
-    public Integer getHorastaller() {
-        return horastaller;
+    public Integer getHorasTaller() {
+        return horasTaller;
     }
 
-    public void setHorastaller(Integer horastaller) {
-        this.horastaller = horastaller;
+    public void setHorasTaller(Integer horasTaller) {
+        this.horasTaller = horasTaller;
     }
 
-    public Integer getHoraslaboratorio() {
-        return horaslaboratorio;
+    public Integer getHorasLaboratorio() {
+        return horasLaboratorio;
     }
 
-    public void setHoraslaboratorio(Integer horaslaboratorio) {
-        this.horaslaboratorio = horaslaboratorio;
+    public void setHorasLaboratorio(Integer horasLaboratorio) {
+        this.horasLaboratorio = horasLaboratorio;
     }
 
-    public Administrador_RP getIdadministrador() {
-        return idadministrador;
+    public Administrador getIdAdministrador() {
+        return idAdministrador;
     }
 
-    public void setIdadministrador(Administrador_RP idadministrador) {
-        this.idadministrador = idadministrador;
+    public void setIdAdministrador(Administrador idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
-    public Set<Asignacion_RP> getAsignacions() {
-        return asignacions;
+    public Set<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
 
-    public void setAsignacions(Set<Asignacion_RP> asignacions) {
-        this.asignacions = asignacions;
+    public void setAsignaciones(Set<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
 }

@@ -1,24 +1,24 @@
 package mx.desarrollo.persistence.dao;
 
 import jakarta.persistence.EntityManager;
-import mx.desarrollo.entity.Alumno;
+import mx.desarrollo.entity.UnidadAprendizaje;
 import mx.desarrollo.persistence.persistence.AbstractDAO;
 
 
 import java.util.List;
 
 
-public class AlumnoDAO extends AbstractDAO<Alumno> {
+public class UnidadAprendizajeDAO extends AbstractDAO<UnidadAprendizaje> {
     private final EntityManager entityManager;
 
-    public AlumnoDAO(EntityManager em) {
-        super(Alumno.class);
+    public UnidadAprendizajeDAO(EntityManager em) {
+        super(UnidadAprendizaje.class);
         this.entityManager = em;
     }
 
-    public List<Alumno> obtenerTodos(){
+    public List<UnidadAprendizaje> obtenerTodos(){
         return entityManager
-                .createQuery("SELECT a FROM Alumno a", Alumno.class)
+                .createQuery("SELECT u FROM UnidadAprendizaje u", UnidadAprendizaje.class)
                 .getResultList();
     }
 

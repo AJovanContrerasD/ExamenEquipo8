@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "administrador")
-public class Administrador_RP {
+public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idadministrador", nullable = false)
@@ -40,14 +40,14 @@ public class Administrador_RP {
     @Column(name = "contrasena", nullable = false, length = 45)
     private String contrasena;
 
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<Asignacion_RP> asignacions = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAdministrador")
+    private Set<Profesor> profesores = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<Profesor_RP> profesors = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAdministrador")
+    private Set<UnidadAprendizaje> unidades = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<UnidadAprendizaje_RP> unidadAprendizajes = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idAdministrador")
+    private Set<Asignacion> asignaciones = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -97,28 +97,28 @@ public class Administrador_RP {
         this.contrasena = contrasena;
     }
 
-    public Set<Asignacion_RP> getAsignacions() {
-        return asignacions;
+    public Set<Profesor> getProfesores() {
+        return profesores;
     }
 
-    public void setAsignacions(Set<Asignacion_RP> asignacions) {
-        this.asignacions = asignacions;
+    public void setProfesores(Set<Profesor> profesores) {
+        this.profesores = profesores;
     }
 
-    public Set<Profesor_RP> getProfesors() {
-        return profesors;
+    public Set<UnidadAprendizaje> getUnidades() {
+        return unidades;
     }
 
-    public void setProfesors(Set<Profesor_RP> profesors) {
-        this.profesors = profesors;
+    public void setUnidades(Set<UnidadAprendizaje> unidades) {
+        this.unidades = unidades;
     }
 
-    public Set<UnidadAprendizaje_RP> getUnidadAprendizajes() {
-        return unidadAprendizajes;
+    public Set<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
 
-    public void setUnidadAprendizajes(Set<UnidadAprendizaje_RP> unidadAprendizajes) {
-        this.unidadAprendizajes = unidadAprendizajes;
+    public void setAsignaciones(Set<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
 }
