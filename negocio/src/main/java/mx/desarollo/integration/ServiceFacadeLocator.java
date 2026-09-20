@@ -1,13 +1,14 @@
-package mx.desarrollo.integration;
+package mx.desarollo.integration;
 
-import mx.desarrollo.facade.FacadeAlumno;
-import mx.desarrollo.facade.FacadeUsuario;
+import mx.desarollo.facade.FacadeAlumno;
+import mx.desarollo.facade.FacadeProfesor;
+import mx.desarollo.facade.FacadeUsuario;
 
 public class ServiceFacadeLocator {
 
     private static FacadeAlumno facadeAlumno;
     private static FacadeUsuario facadeUsuario;
-
+    private static FacadeProfesor facadeProfesor;
     public static FacadeAlumno getInstanceFacadeAlumno() {
         if (facadeAlumno == null) {
             facadeAlumno = new FacadeAlumno();
@@ -25,4 +26,14 @@ public class ServiceFacadeLocator {
             return facadeUsuario;
         }
     }
+
+    public static FacadeProfesor getInstanceFacadeProfesor() {
+        if (facadeProfesor == null) {
+            facadeProfesor = new FacadeProfesor();
+        }
+        return facadeProfesor;
+    }
+
 }
+
+

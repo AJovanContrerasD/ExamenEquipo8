@@ -1,11 +1,11 @@
-package mx.avanti.desarollo.dao;
+package mx.desarollo.persistence.dao;
+
 
 import jakarta.persistence.EntityManager;
-import mx.avanti.desarollo.persistence.AbstractDAO;
-import mx.avanti.entidad.Alumno;
+import mx.desarollo.persistence.persistence.AbstractDAO;
+import mx.desarrollo.entity.Alumno;
 
 import java.util.List;
-
 
 public class AlumnoDAO extends AbstractDAO<Alumno> {
     private final EntityManager entityManager;

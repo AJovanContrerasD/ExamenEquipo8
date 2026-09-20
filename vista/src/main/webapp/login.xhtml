@@ -54,6 +54,7 @@
                 <p:messages id="messages" showDetail="true" closable="true">
                      
                 </p:messages>
+
                 <div class="login">
                     <div class="panel-header">
                         <p:graphicImage url="resources/uabcl.png" class="logo" />
@@ -65,7 +66,7 @@
                         <div class="form-group">
                             <p:password class ="form-control" placeholder="Contraseña: " value="#{loginUI.usuario.contrasena}" />
                         </div>
-                        <p:commandButton update="messages" class = "btn btn-success" value ="Iniciar sesion" actionListener ="#{loginUI.login()}" />
+                        <p:commandButton update="messages" class = "btn btn-success" value ="Iniciar sesion" action="profesoresCrud?faces-redirect=true" />
 
                     </div>
                 </div>

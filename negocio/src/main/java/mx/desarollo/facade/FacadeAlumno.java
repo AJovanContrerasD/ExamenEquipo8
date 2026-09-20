@@ -1,6 +1,6 @@
-package mx.avanti.desarrollo.facade;
+package mx.desarollo.facade;
 
-import mx.desarrollo.delegate.DelegateAlumno;
+import mx.desarollo.delegate.DelegateAlumno;
 import mx.desarrollo.entity.Alumno;
 
 public class FacadeAlumno {

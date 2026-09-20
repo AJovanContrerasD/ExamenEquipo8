@@ -5,25 +5,25 @@
  */
 package helper;
 
-
-import integration.ServiceFacadeLocator;
-import mx.avanti.entidad.Usuario;
+import mx.desarollo.integration.ServiceFacadeLocator;
+import mx.desarrollo.entity.Usuario;
 
 import java.io.Serializable;
 
 public class LoginHelper implements Serializable {
-    
+
 
     /**
      * Metodo para hacer login llamara a la instancia de usuarioFacade
      * @param correo
      * @param password
-     * @return 
+     * @return
      */
     public Usuario Login(String correo, String password){
         return ServiceFacadeLocator.getInstanceFacadeUsuario().login(password, correo);
     }
-    
-    
-    
+
+
+
 }
+

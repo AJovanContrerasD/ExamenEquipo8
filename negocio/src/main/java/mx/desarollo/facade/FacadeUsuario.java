@@ -1,6 +1,6 @@
-package mx.avanti.desarrollo.facade;
+package mx.desarollo.facade;
 
-import mx.desarrollo.delegate.DelegateUsuario;
+import mx.desarollo.delegate.DelegateUsuario;
 import mx.desarrollo.entity.Usuario;
 
 public class FacadeUsuario {

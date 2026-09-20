@@ -5,10 +5,12 @@
  */
 package mx.desarollo.persistence.integration;
 
-import jakarta.persistence.EntityManager;
-import mx.avanti.desarollo.dao.*;
-import mx.avanti.desarollo.persistence.HibernateUtil;
 
+import jakarta.persistence.EntityManager;
+import mx.desarollo.persistence.dao.AlumnoDAO;
+import mx.desarollo.persistence.dao.ProfesorDAO;
+import mx.desarollo.persistence.dao.UsuarioDAO;
+import mx.desarollo.persistence.persistence.HibernateUtil;
 
 /**
  *
@@ -18,6 +20,7 @@ public class ServiceLocator {
 
     private static AlumnoDAO alumnoDAO;
     private static UsuarioDAO usuarioDAO;
+    private static ProfesorDAO profesorDAO;
 
     private static EntityManager getEntityManager(){
         return HibernateUtil.getEntityManager();
@@ -43,6 +46,16 @@ public class ServiceLocator {
             return usuarioDAO;
         } else{
             return usuarioDAO;
+        }
+    }
+
+    public static ProfesorDAO getInstanceProfesorDAO(){
+        if(profesorDAO == null){
+            profesorDAO = new ProfesorDAO(getEntityManager());
+            return profesorDAO;
+
+        }else {
+            return profesorDAO;
         }
     }
     
