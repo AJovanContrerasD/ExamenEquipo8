@@ -82,9 +82,43 @@ public class AsignarBeanUI implements Serializable {
                 mensajeError("Favor de elegir una Unidad de Aprendizaje");
                 return;
             }
+            if(asignacion.getGrupo() == null){
+                mensajeError("Favor de ingresar Grupo");
+                return;
+            }
+            if(asignacion.getSemestre() == null){
+                mensajeError("Ingresar Semestre");
+                return;
+            }
+
+            if(asignacion.getHorainicio() == null ||asignacion.getHorafin() == null ){
+                mensajeError("Ingrese hora de salida y hora fin");
+                return;
+            }
+           if( asignacion.getHorafin().isBefore(asignacion.getHorainicio()) || asignacion.getHorainicio().isAfter(asignacion.getHorafin() )){
+               mensajeError("La hora de clase no es valida");
+               return;
+           }
+
+           Integer auxIdProfesor = idProfesorElegido;
+
+           List<Asignacion> asignacionesExistentes = helper.obtenerAsignacionesProf(auxIdProfesor);
+            LocalTime auxHInicio = asignacion.getHorainicio();
+            LocalTime auxHFin = asignacion.getHorafin();
+
+            for(Asignacion i : asignacionesExistentes){
+               if(i.getDiasemana().equalsIgnoreCase(asignacion.getDiasemana())){
+                   if(auxHInicio.isBefore(i.getHorafin()) && auxHFin.isAfter(i.getHorainicio()))
+                   {
+                       mensajeError("La hora ingresada se traslapa con otra materia registrada de " + i.getHorainicio() + "-"+ i.getHorafin());
+                       return;
+                   }
+               }
+
+           }
 
 
-    Administrador administrador = loginUI.getUsuario();
+            Administrador administrador = loginUI.getUsuario();
             asignacion.setIdadministrador(administrador);
 
             Profesor profesorElegido = listaProfesores.stream().filter(p-> p.getId().equals(idProfesorElegido))
@@ -100,8 +134,9 @@ public class AsignarBeanUI implements Serializable {
 
     asignacion.setIdunidad(asignacion.getIdunidad());
     asignacion.setSemestre(asignacion.getSemestre());
+
     if(diaSeleccionado==null || diaSeleccionado.isEmpty()){
-        mensajeError("Favor de elegir dias de la semana");
+        mensajeError("Favor de elegir un dia de la semana");
         return;
     }
 

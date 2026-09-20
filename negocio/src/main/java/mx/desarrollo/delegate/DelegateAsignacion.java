@@ -17,4 +17,9 @@ public class DelegateAsignacion {
     public List<Asignacion> getTodasAsignaciones(){
         return ServiceLocator.getInstanceAsignacionDAO().findAll();
     }
+
+
+    public List<Asignacion> getAsignacionesPorProf(Integer idProfesor){
+        return ServiceLocator.getInstanceAsignacionDAO().findFromWhere("idprofesor", "id",String.valueOf(idProfesor));
+    }
 }

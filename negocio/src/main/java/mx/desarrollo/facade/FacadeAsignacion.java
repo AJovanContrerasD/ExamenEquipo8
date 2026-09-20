@@ -22,4 +22,8 @@ public class FacadeAsignacion {
         return delegateAsignacion.getTodasAsignaciones();
     }
 
+    public List<Asignacion> obtenerAsignacionesProf(Integer idProfesor){ return delegateAsignacion.getAsignacionesPorProf(idProfesor);
+    }
+
+
 }
