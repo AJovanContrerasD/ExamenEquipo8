@@ -37,7 +37,7 @@ public class LoginBeanUI implements Serializable{
 
      public void login() throws IOException{
         String appURL = "/index.xhtml";
-        // los atributos de usuario vienen del xhtml 
+        //los atributos de usuario vienen del xhtml
         Administrador ad= new Administrador();
         ad.setId(0);
         ad = loginHelper.Login(usuario.getUsuario(), usuario.getContrasena());
