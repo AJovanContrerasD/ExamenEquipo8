@@ -4,12 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 @Entity
-@Table(name = "administrador")
-public class Administrador_RP {
+@Table(name = "administrador", schema = "sauap")
+public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idadministrador", nullable = false)
@@ -39,15 +36,6 @@ public class Administrador_RP {
     @NotNull
     @Column(name = "contrasena", nullable = false, length = 45)
     private String contrasena;
-
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<Asignacion_RP> asignacions = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<Profesor_RP> profesors = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "idadministrador")
-    private Set<UnidadAprendizaje_RP> unidadAprendizajes = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -95,30 +83,6 @@ public class Administrador_RP {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public Set<Asignacion_RP> getAsignacions() {
-        return asignacions;
-    }
-
-    public void setAsignacions(Set<Asignacion_RP> asignacions) {
-        this.asignacions = asignacions;
-    }
-
-    public Set<Profesor_RP> getProfesors() {
-        return profesors;
-    }
-
-    public void setProfesors(Set<Profesor_RP> profesors) {
-        this.profesors = profesors;
-    }
-
-    public Set<UnidadAprendizaje_RP> getUnidadAprendizajes() {
-        return unidadAprendizajes;
-    }
-
-    public void setUnidadAprendizajes(Set<UnidadAprendizaje_RP> unidadAprendizajes) {
-        this.unidadAprendizajes = unidadAprendizajes;
     }
 
 }

@@ -4,12 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 @Entity
-@Table(name = "profesor")
-public class Profesor_RP {
+@Table(name = "profesor", schema = "sauap")
+public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idprofesor", nullable = false)
@@ -38,10 +35,7 @@ public class Profesor_RP {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador_RP idadministrador;
-
-    @OneToMany(mappedBy = "idprofesor")
-    private Set<Asignacion_RP> asignacions = new LinkedHashSet<>();
+    private Administrador idadministrador;
 
     public Integer getId() {
         return id;
@@ -83,20 +77,12 @@ public class Profesor_RP {
         this.rfc = rfc;
     }
 
-    public Administrador_RP getIdadministrador() {
+    public Administrador getIdadministrador() {
         return idadministrador;
     }
 
-    public void setIdadministrador(Administrador_RP idadministrador) {
+    public void setIdadministrador(Administrador idadministrador) {
         this.idadministrador = idadministrador;
-    }
-
-    public Set<Asignacion_RP> getAsignacions() {
-        return asignacions;
-    }
-
-    public void setAsignacions(Set<Asignacion_RP> asignacions) {
-        this.asignacions = asignacions;
     }
 
 }

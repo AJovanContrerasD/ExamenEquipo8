@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "asignacion")
-public class Asignacion_RP {
+@Table(name = "asignacion", schema = "sauap")
+public class Asignacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idasignacion", nullable = false)
@@ -17,17 +17,17 @@ public class Asignacion_RP {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idprofesor", nullable = false)
-    private Profesor_RP idprofesor;
+    private Profesor idprofesor;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idunidad", nullable = false)
-    private UnidadAprendizaje_RP idunidad;
+    private UnidadAprendizaje idunidad;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idadministrador", nullable = false)
-    private Administrador_RP idadministrador;
+    private Administrador idadministrador;
 
     @Size(max = 10)
     @NotNull
@@ -60,27 +60,27 @@ public class Asignacion_RP {
         this.id = id;
     }
 
-    public Profesor_RP getIdprofesor() {
+    public Profesor getIdprofesor() {
         return idprofesor;
     }
 
-    public void setIdprofesor(Profesor_RP idprofesor) {
+    public void setIdprofesor(Profesor idprofesor) {
         this.idprofesor = idprofesor;
     }
 
-    public UnidadAprendizaje_RP getIdunidad() {
+    public UnidadAprendizaje getIdunidad() {
         return idunidad;
     }
 
-    public void setIdunidad(UnidadAprendizaje_RP idunidad) {
+    public void setIdunidad(UnidadAprendizaje idunidad) {
         this.idunidad = idunidad;
     }
 
-    public Administrador_RP getIdadministrador() {
+    public Administrador getIdadministrador() {
         return idadministrador;
     }
 
-    public void setIdadministrador(Administrador_RP idadministrador) {
+    public void setIdadministrador(Administrador idadministrador) {
         this.idadministrador = idadministrador;
     }
 
