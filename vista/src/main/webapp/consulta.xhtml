@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/plantilla/plantilla.xhtml">
+
+    <ui:define name="titulo">Consulta general</ui:define>
+    <ui:define name="subtitulo">Profesores registrados y sus asignaciones</ui:define>
+
+    <ui:define name="contenido">
+        <style>
+            .contenedor-consulta{
+                display: flex;
+                gap: 40px;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+            .columna-izquierda{
+                width: 420px;
+                flex-shrink: 0;
+            }
+            .buscador{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                background: #FFFFFF;
+                border-radius: 24px;
+                padding: 12px 18px;
+                margin-bottom: 16px;
+                box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+            }
+            .buscador input{
+                border: none;
+                outline: none;
+                flex: 1;
+                font-size: 14px;
+                font-family: inherit;
+            }
+            .lista-profesores{
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                max-height: 780px;
+                overflow-y: auto;
+                padding-right: 6px;
+            }
+            .tarjeta-profesor{
+                background: #FFFFFF;
+                border-radius: 14px;
+                padding: 16px 20px;
+                border: 2px solid transparent;
+                cursor: pointer;
+                text-align: left;
+                width: 100%;
+                box-sizing: border-box;
+                font-family: inherit;
+                box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+            }
+            .tarjeta-profesor.activa{
+                border-color: #4FA974;
+            }
+            .tarjeta-profesor .nombre{
+                margin: 0 0 8px;
+                font-size: 15px;
+                font-weight: bold;
+            }
+            .tarjeta-profesor .dato{
+                margin: 4px 0;
+                font-size: 13px;
+                font-weight: bold;
+                color: #1B1B1B;
+            }
+            .tarjeta-profesor .dato span{
+                font-weight: normal;
+                color: #444444;
+            }
+            .tarjeta-profesor-link{
+                display: block;
+                text-decoration: none;
+                color: inherit;
+            }
+            .columna-derecha{
+                flex: 1;
+                min-width: 320px;
+            }
+            table.horario{
+                border-collapse: collapse;
+                background: #FFFFFF;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+            }
+            table.horario th, table.horario td{
+                border: 1px solid #E4E4E4;
+                padding: 6px 12px;
+                font-size: 12.5px;
+                text-align: center;
+            }
+            table.horario th{
+                background: #FFFFFF;
+                font-weight: bold;
+                min-width: 130px;
+            }
+            table.horario td.hora{
+                font-weight: bold;
+                text-align: left;
+                min-width: 60px;
+            }
+            table.horario td{
+                height: 46px;
+                vertical-align: middle;
+            }
+            table.horario td.ocupado{
+                background: #D9D9D9;
+                font-weight: bold;
+                font-size: 12.5px;
+            }
+        </style>
+
+        <h:form id="formConsulta">
+            <div class="contenedor-consulta">
+
+                <div class="columna-izquierda">
+                    <div class="buscador">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2">
+                            <circle cx="11" cy="11" r="7"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <h:inputText value="#{consultaUI.busqueda}" placeholder="Buscar profesor">
+                            <p:ajax event="keyup" update="@form" delay="300" />
+                        </h:inputText>
+                    </div>
+
+                    <h:panelGroup layout="block" styleClass="lista-profesores" id="listaProfesores">
+                        <ui:repeat value="#{consultaUI.profesoresFiltrados}" var="p">
+                            <h:panelGroup layout="block"
+                                          styleClass="tarjeta-profesor #{consultaUI.seleccionado eq p ? 'activa' : ''}">
+                                <p:commandLink update="@form" actionListener="#{consultaUI.seleccionar(p)}" styleClass="tarjeta-profesor-link">
+                                    <h:panelGroup layout="block">
+                                        <p class="nombre">Profesor: #{p.nombre} #{p.appaterno} #{p.apmaterno}</p>
+                                        <p class="dato">RFC: <span>#{p.rfc}</span></p>
+                                        <p class="dato">Total de horas: <span>#{consultaUI.totalHoras(p)}</span></p>
+                                        <p class="dato">Total de asignaciones: <span>#{consultaUI.totalAsignaciones(p)}</span></p>
+                                        <p class="dato">Grupos asignados: <span>#{consultaUI.gruposAsignados(p)}</span></p>
+                                        <p class="dato">Unidades asignadas: <span>#{consultaUI.unidadesAsignadas(p)}</span></p>
+                                    </h:panelGroup>
+                                </p:commandLink>
+                            </h:panelGroup>
+                        </ui:repeat>
+                    </h:panelGroup>
+                </div>
+
+                <h:panelGroup layout="block" styleClass="columna-derecha" id="horarioPanel">
+                    <table class="horario">
+                        <thead>
+                            <tr>
+                                <th>DIA</th>
+                                <ui:repeat value="#{consultaUI.dias}" var="dia">
+                                    <th>#{dia}</th>
+                                </ui:repeat>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{consultaUI.horas}" var="hora">
+                                <tr>
+                                    <td class="hora">
+                                        <h:outputText value="#{hora}">
+                                            <f:convertDateTime type="localTime" pattern="H:mm" />
+                                        </h:outputText>
+                                    </td>
+                                    <ui:repeat value="#{consultaUI.dias}" var="dia">
+                                        <td class="#{consultaUI.estaOcupado(dia, hora) ? 'ocupado' : ''}">
+                                            #{consultaUI.claseEn(dia, hora)}
+                                        </td>
+                                    </ui:repeat>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:panelGroup>
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</html>

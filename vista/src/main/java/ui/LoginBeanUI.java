@@ -37,7 +37,7 @@ public class LoginBeanUI implements Serializable{
 
      public void login() throws IOException{
         String appURL = "/index.xhtml";
-        // los atributos de usuario vienen del xhtml 
+        //los atributos de usuario vienen del xhtml
         Administrador ad= new Administrador();
         ad.setId(0);
         ad = loginHelper.Login(usuario.getUsuario(), usuario.getContrasena());
@@ -49,6 +49,12 @@ public class LoginBeanUI implements Serializable{
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña incorrecta:", "Intente de nuevo"));
         }
+    }
+
+    public void logout() throws IOException{
+        String appURL = "/login.xhtml";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + appURL);
     }
 
     
