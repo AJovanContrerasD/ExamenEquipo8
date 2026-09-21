@@ -18,16 +18,16 @@
 
             <div id="datos">
                 <div>
-                    <p:inputText styleClass="fieldLarge" placeholder="Nombre de la unidad de aprendizaje" maxlength="50" autocomplete="false" required="true" value="#{unidadUI.unidad.nombre}"> </p:inputText>
+                    <p:inputText styleClass="fieldLarge" placeholder="Nombre de la unidad de aprendizaje" maxlength="50" autocomplete="false" required="true" value="#{regUnidadUI.unidad.nombre}"> </p:inputText>
                 </div>
 
                 <div class="filaTriple">
-                    <p:inputText styleClass="fieldSmall" type="number" placeholder="Horas de clase" autocomplete="false" required="true" value="#{unidadUI.unidad.horasClase}"> <f:validateLongRange minimum="0" maximum="4" /> </p:inputText>
-                    <p:inputText styleClass="fieldSmall" type="number" placeholder="Horas de taller" autocomplete="false" required="true" value="#{unidadUI.unidad.horasTaller}"> <f:validateLongRange minimum="0" maximum="4" /> </p:inputText>
-                    <p:inputText styleClass="fieldSmall" type="number" placeholder="Horas de laboratorio" autocomplete="false" required="true" value="#{unidadUI.unidad.horasLaboratorio}"> <f:validateLongRange minimum="0" maximum="4" /> </p:inputText>
+                    <p:inputText styleClass="fieldSmall" type="number" placeholder="Horas de clase" autocomplete="false" required="true" value="#{regUnidadUI.unidad.horasClase}"> <f:validateLongRange minimum="0" maximum="4" /> </p:inputText>
+                    <p:inputText styleClass="fieldSmall" type="number" placeholder="Horas de taller" autocomplete="false" required="true" value="#{regUnidadUI.unidad.horasTaller}"> <f:validateLongRange minimum="0" maximum="4" /> </p:inputText>
+                    <p:inputText styleClass="fieldSmall" type="number" placeholder="Horas de laboratorio" autocomplete="false" required="true" value="#{regUnidadUI.unidad.horasLaboratorio}"> <f:validateLongRange minimum="0" maximum="4" /> </p:inputText>
                 </div>
 
-                <p:commandButton update="messages" id="btnAgregar" value="Registrar unidad de aprendizaje" actionListener="#{unidadUI.registrar()}"> </p:commandButton>
+                <p:commandButton update="messages" id="btnAgregar" value="Registrar unidad de aprendizaje" actionListener="#{regUnidadUI.registrar()}"> </p:commandButton>
 
             </div>
         </h:form>

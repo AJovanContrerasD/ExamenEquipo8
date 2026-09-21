@@ -5,66 +5,84 @@
  */
 package ui;
 
-import helper.UnidadHelper;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
-import jakarta.inject.Inject;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-import mx.desarrollo.entity.Administrador;
 import mx.desarrollo.entity.UnidadAprendizaje;
+import mx.desarrollo.integration.ServiceFacadeLocator;
 
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named("unidadUI")
-@SessionScoped
+@ViewScoped
 public class UnidadBeanUI implements Serializable{
-    private UnidadHelper unidadHelper;
-    private UnidadAprendizaje unidad;
-
-    @Inject
-    private LoginBeanUI loginUI;
-
-    public UnidadBeanUI() {
-        unidadHelper = new UnidadHelper();
-    }
-
+    private List<UnidadAprendizaje> unidades;
+    private String filtroBusqueda;
+    private UnidadAprendizaje unidadSeleccionada;
     /**
      * Metodo postconstructor todo lo que este dentro de este metodo
      * sera la primero que haga cuando cargue la pagina
      */
+
     @PostConstruct
     public void init(){
-        unidad = new UnidadAprendizaje();
+        unidades = ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
     }
 
-    public void registrar() throws IOException{
-        try{
-            Administrador administrador = loginUI.getUsuario();
-            unidad.setIdAdministrador(administrador);
+    public void nuevaUnidad(){
 
-            unidadHelper.registrar(unidad);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Unidad de aprendizaje registrada", "La unidad '"+unidad.getNombre()+"' fue registrada correctamente!"));
-            unidad = new UnidadAprendizaje();
-        }catch(Exception e){
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "ERROR", "La unidad de aprendizaje no se pudo registrar"));
+    }
+
+    public void buscar(){
+
+    }
+
+    public void guardarEdicion(){
+        ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().actualizarUnidadAprendizaje(unidadSeleccionada);
+        unidadSeleccionada = null;
+        unidades = ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
+    }
+
+    public void cancelarEdicion(){
+        unidadSeleccionada = null;
+    }
+
+    public void eliminar(UnidadAprendizaje unidad){
+        ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().eliminarUnidadAprendizaje(unidad);
+        unidades = ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
+    }
+
+    public List<UnidadAprendizaje> getListaUnidades(){
+        if(filtroBusqueda == null || filtroBusqueda.trim().isEmpty()){
+            return unidades;
         }
-
+        List<UnidadAprendizaje> filtradas = new ArrayList<>();
+        String criterio = filtroBusqueda.toLowerCase();
+        for(UnidadAprendizaje u : unidades){
+            if(u.getNombre().toLowerCase().contains(criterio)){
+                filtradas.add(u);
+            }
+        }
+        return filtradas;
     }
 
+    public String getFiltroBusqueda() {
+        return filtroBusqueda;
+    }
+
+    public void setFiltroBusqueda(String filtroBusqueda) {
+        this.filtroBusqueda = filtroBusqueda;
+    }
 
     /* getters y setters*/
-    public UnidadAprendizaje getUnidad() {
-        return unidad;
+    public UnidadAprendizaje getUnidadSeleccionada() {
+        return unidadSeleccionada;
     }
 
-    public void setUnidad(UnidadAprendizaje unidad) {
-        this.unidad = unidad;
+    public void setUnidadSeleccionada(UnidadAprendizaje unidad) {
+        this.unidadSeleccionada = unidad;
     }
 
 }

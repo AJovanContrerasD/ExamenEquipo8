@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/plantilla/plantilla.xhtml">
+
+    <ui:define name="titulo"> Unidades de aprendizaje </ui:define>
+    <ui:define name="subtitulo"> Unidades de aprendizaje </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <h:form id="formProfesor">
+
+                <div class="busqueda">
+                    <h:inputText styleClass="busq" value="#{unidadUI.filtroBusqueda}" placeholder="Buscar..."/>
+                    <h:commandButton value="Buscar" styleClass="btn-registrar" action="#{unidadUI.buscar()}" />
+                </div>
+
+                <h:panelGroup id="boxEdicion" rendered="#{unidadUI.unidadSeleccionada != null}" layout="block" styleClass="box-modificar">
+                    <h3>Modificar la unidad</h3>
+
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nombre :"/>
+                        <h:inputText value="#{unidadUI.unidadSeleccionada.nombre}"/>
+
+                        <h:outputLabel value="Horas de clase:"/>
+                        <h:inputText value="#{unidadUI.unidadSeleccionada.horasClase}"/>
+
+                        <h:outputLabel value="Horas de taller:"/>
+                        <h:inputText value="#{unidadUI.unidadSeleccionada.horasTaller}"/>
+
+                        <h:outputLabel value="Horas de laboratorio:"/>
+                        <h:inputText value="#{unidadUI.unidadSeleccionada.horasLaboratorio}"/>
+                    </h:panelGrid>
+
+
+                    <br/>
+                    <h:commandButton value="Guardar cambios" action="#{unidadUI.guardarEdicion()}" />
+                    <h:commandButton value="Cancelar" action="#{unidadUI.cancelarEdicion()}" style="margin-left: 10px;" />
+                </h:panelGroup>
+
+                <h:dataTable value="#{unidadUI.listaUnidades}" var="u" styleClass="tabla">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        <h:outputText value="##{u.id}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{u.nombre}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Horas de clase</f:facet>
+                        <h:outputText value="#{u.horasClase}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Horas de taller</f:facet>
+                        <h:outputText value="#{u.horasTaller}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Horas de laboratorio</f:facet>
+                        <h:outputText value="#{u.horasLaboratorio}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"></f:facet>
+                        <div class="acciones">
+                            <h:commandLink action="#{unidadUI.setUnidadSeleccionada(u)}" styleClass="btn-icono">
+                                <h:graphicImage url="resources/edit-icon.png"/>
+                            </h:commandLink>
+                            <h:commandLink action="#{unidadUI.eliminar(u)}" onclick="return confirm('Seguro de eliminarlo?');" styleClass="btn-icono">
+                                <h:graphicImage url="resources/elimin-icon.png"/>
+                            </h:commandLink>
+                        </div>
+                    </h:column>
+                </h:dataTable>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
