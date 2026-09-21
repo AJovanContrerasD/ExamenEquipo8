@@ -112,24 +112,24 @@ public class AsignarBeanUI implements Serializable {
                 return;
             }
 
-            if(asignacion.getHorainicio() == null ||asignacion.getHorafin() == null ){
+            if(asignacion.getHoraInicio() == null ||asignacion.getHoraFin() == null ){
                 mensajeError("Ingrese hora de salida y hora fin");
                 return;
             }
 
-           if( asignacion.getHorafin().isBefore(asignacion.getHorainicio()) || asignacion.getHorainicio().isAfter(asignacion.getHorafin() )){
+           if( asignacion.getHoraFin().isBefore(asignacion.getHoraInicio()) || asignacion.getHoraInicio().isAfter(asignacion.getHoraFin() )){
                mensajeError("La hora de clase no es valida");
                return;
            }
 
-           if(asignacion.getHorafin().isAfter(LocalTime.of(22, 0, 0)) ||
-                   asignacion.getHorainicio().isBefore(LocalTime.of(7,0,0)))
+           if(asignacion.getHoraFin().isAfter(LocalTime.of(22, 0, 0)) ||
+                   asignacion.getHoraInicio().isBefore(LocalTime.of(7,0,0)))
            {
                mensajeError("Horario fuera del limite establecido");
                return;
            }
 
-            if(asignacion.getHorainicio().getMinute() != 0|| asignacion.getHorafin().getMinute()!=0){
+            if(asignacion.getHoraInicio().getMinute() != 0|| asignacion.getHoraFin().getMinute()!=0){
                 mensajeError("Ingrese unicamente horas \"en punto\" (en cero minutos)");
                 return;
             }
@@ -137,14 +137,14 @@ public class AsignarBeanUI implements Serializable {
            Integer auxIdProfesor = idProfesorElegido;
 
            List<Asignacion> asignacionesExistentes = helper.obtenerAsignacionesProf(auxIdProfesor);
-            LocalTime auxHInicio = asignacion.getHorainicio();
-            LocalTime auxHFin = asignacion.getHorafin();
+            LocalTime auxHInicio = asignacion.getHoraInicio();
+            LocalTime auxHFin = asignacion.getHoraFin();
 
             for(Asignacion i : asignacionesExistentes){
-               if(i.getDiasemana().equalsIgnoreCase(asignacion.getDiasemana())){
-                   if(auxHInicio.isBefore(i.getHorafin()) && auxHFin.isAfter(i.getHorainicio()))
+               if(i.getDiaSemana().equalsIgnoreCase(asignacion.getDiaSemana())){
+                   if(auxHInicio.isBefore(i.getHoraFin()) && auxHFin.isAfter(i.getHoraInicio()))
                    {
-                       mensajeError("La hora ingresada se traslapa con otra materia registrada de " + i.getHorainicio() + "-"+ i.getHorafin());
+                       mensajeError("La hora ingresada se traslapa con otra materia registrada de " + i.getHoraInicio() + "-"+ i.getHoraFin());
                        return;
                    }
                }
@@ -155,20 +155,20 @@ public class AsignarBeanUI implements Serializable {
 
 
             Administrador administrador = loginUI.getUsuario();
-            asignacion.setIdadministrador(administrador);
+            asignacion.setIdAdministrador(administrador);
 
             Profesor profesorElegido = listaProfesores.stream().filter(p-> p.getId().equals(idProfesorElegido))
                             .findFirst().orElse(null);
-            asignacion.setIdprofesor(profesorElegido);
+            asignacion.setIdProfesor(profesorElegido);
 
             UnidadAprendizaje unidadElegida = listaUnidades.stream().filter(u -> u.getId().equals(idUnidadElegida))
                             .findFirst().orElse(null);
-            asignacion.setIdunidad(unidadElegida);
+            asignacion.setIdUnidad(unidadElegida);
 
 
     asignacion.setGrupo(asignacion.getGrupo());
 
-    asignacion.setIdunidad(asignacion.getIdunidad());
+    asignacion.setIdUnidad(asignacion.getIdUnidad());
     asignacion.setSemestre(asignacion.getSemestre());
 
     if(diaSeleccionado==null || diaSeleccionado.isEmpty()){
@@ -176,9 +176,9 @@ public class AsignarBeanUI implements Serializable {
         return;
     }
 
-    asignacion.setDiasemana(diaSeleccionado);
-    asignacion.setHorainicio(asignacion.getHorainicio());
-    asignacion.setHorafin(asignacion.getHorafin());
+    asignacion.setDiaSemana(diaSeleccionado);
+    asignacion.setHoraInicio(asignacion.getHoraInicio());
+    asignacion.setHoraFin(asignacion.getHoraFin());
     helper.registrarAsignacion(asignacion);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Asignacion Registrada", "La asignacion fue registrada correctamente!"));

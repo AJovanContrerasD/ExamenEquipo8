@@ -53,17 +53,17 @@
                                         </td>
 
                                         <td>
-                                            <h:outputText value="#{UnidadAprendizaje.horastaller}"/>
+                                            <h:outputText value="#{UnidadAprendizaje.horasTaller}"/>
                                         </td>
 
 
                                         <td>
-                                            <h:outputText value="#{UnidadAprendizaje.horaslaboratorio}"/>
+                                            <h:outputText value="#{UnidadAprendizaje.horasLaboratorio}"/>
                                         </td>
 
 
                                         <td>
-                                            <h:outputText value="#{UnidadAprendizaje.horasclase}"/>
+                                            <h:outputText value="#{UnidadAprendizaje.horasClase}"/>
 
                                         </td>
                                         <td>
@@ -165,12 +165,12 @@
                     <div id="horasInicioFInal">
                         <div class="columnaHoras">
                     <p:outputLabel for="hinicio" value="Hora Inicio: " />
-                        <p:datePicker id="hinicio" value="#{AsignarUI.asignacion.horainicio}" timeOnly="true" pattern="HH:mm"
+                        <p:datePicker id="hinicio" value="#{AsignarUI.asignacion.horaInicio}" timeOnly="true" pattern="HH:mm"
                                       stepMinute="60" required="true"/>
                         </div>
                         <div class="columnaHoras">
                         <p:outputLabel for="hfin" value="Hora Fin: " />
-                        <p:datePicker id="hfin" value="#{AsignarUI.asignacion.horafin}" timeOnly="true" pattern="HH:mm" stepMinute="60"
+                        <p:datePicker id="hfin" value="#{AsignarUI.asignacion.horaFin}" timeOnly="true" pattern="HH:mm" stepMinute="60"
                                       required="true"/>
                         </div>
                     </div>
@@ -210,16 +210,16 @@
                                 <h:outputText value="#{Asignacion.id}"/>
                             </td>
                             <td>
-                                <h:outputText value="#{Asignacion.idunidad.nombre}"/>
+                                <h:outputText value="#{Asignacion.idUnidad.nombre}"/>
                             </td>
                             <td>
-                                <h:outputText value="#{Asignacion.idprofesor.nombre} #{Asignacion.idprofesor.appaterno} #{Asignacion.idprofesor.apmaterno}"/>
+                                <h:outputText value="#{Asignacion.idProfesor.nombre} #{Asignacion.idProfesor.appaterno} #{Asignacion.idProfesor.apmaterno}"/>
                             </td>
                             <td>
-                                <h:outputText value="#{Asignacion.diasemana}"/>
+                                <h:outputText value="#{Asignacion.diaSemana}"/>
                             </td>
                             <td>
-                                <h:outputText value="#{Asignacion.horainicio} - #{Asignacion.horafin}"/>
+                                <h:outputText value="#{Asignacion.horaInicio} - #{Asignacion.horaFin}"/>
                             </td>
                             <td>
                                 <p:radioButton for="@form:GrupoAsignaciones" itemIndex="#{status.index}"/>

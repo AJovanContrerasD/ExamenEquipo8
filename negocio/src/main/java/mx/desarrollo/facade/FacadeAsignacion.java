@@ -25,8 +25,21 @@ public class FacadeAsignacion {
         delegateAsignacion.deleteAsignacion(asignacion);
     }
 
+    public void borrarAsignacion (Integer IdAsignacion) {
+        delegateAsignacion.borrarAsignacion(IdAsignacion);
+    }
+
+    public List<Asignacion> obtenerAsignacionesProf(Integer idProfesor){ return delegateAsignacion.getAsignacionesPorProf(idProfesor);
+    }
+
+
     public List<Asignacion> findAll(){
         return delegateAsignacion.findAll();
     }
+
+    public List<Asignacion> obtenerTodasAsignaciones() {
+        return delegateAsignacion.getTodasAsignaciones();
+    }
+
 
 }

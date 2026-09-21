@@ -9,7 +9,7 @@ import java.util.List;
 public class AsignarHelper {
 
     public List<Profesor> obtenerProfesores(){
-        return ServiceFacadeLocator.getInstanceFacadeProfesor().obtenerTodosProfesores();
+        return ServiceFacadeLocator.getInstanceFacadeProfesor().findAll();
     }
 
     public void registrarAsignacion(Asignacion asignacion){
@@ -35,7 +35,7 @@ public class AsignarHelper {
 
     public List<UnidadAprendizaje> obtenerUnidades (){
 
-        return ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().obtenerTodasUnidades();
+        return ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
 
     }
 }
