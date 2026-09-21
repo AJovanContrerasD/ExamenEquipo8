@@ -125,7 +125,7 @@
                 </div>
 
                         <div class="btnGuardar">
-                        <h:commandButton value="registrarAsignacion" action="#{AsignarUI.guardarAsignacion}" style="
+                        <h:commandButton value="Registrar Asignacion" action="#{AsignarUI.guardarAsignacion}" style="
                         background-color: #ffcd50;
                         color: white;
                         font-weight: bold;
@@ -198,6 +198,7 @@
                         <th>Unidad</th>
                         <th>Prof.Asignado</th>
                         <th>Dia. Semana</th>
+                        <th>Grupo</th>
                         <th>Horario</th>
                         <th>    </th>
 
@@ -218,6 +219,11 @@
                             <td>
                                 <h:outputText value="#{Asignacion.diaSemana}"/>
                             </td>
+
+                            <td>
+                                <h:outputText value="#{Asignacion.grupo}"/>
+                            </td>
+
                             <td>
                                 <h:outputText value="#{Asignacion.horaInicio} - #{Asignacion.horaFin}"/>
                             </td>
@@ -228,7 +234,7 @@
                     </ui:repeat>
                     </tbody>
                 </table>
-                    <h:commandButton value="borrarAsignacion" action="#{AsignarUI.borrarAsignacionBD}"
+                    <h:commandButton value="Borrar Asignacion" action="#{AsignarUI.borrarAsignacionBD}"
                                      onclick="return confirm('¿Eliminar asignacion seleccionada?')" style="
                         background-color: #ff1c52;
                         color: white;

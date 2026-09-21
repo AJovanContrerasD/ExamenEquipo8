@@ -8,6 +8,7 @@ import java.util.List;
 
 public class DelegateAsignacion {
     public void saveAsignacion(Asignacion asignacion){
+
         ServiceLocator.getInstanceAsignacionDAO().save(asignacion);
     }
 
@@ -34,7 +35,7 @@ public class DelegateAsignacion {
     }
 
     public List<Asignacion> getAsignacionesPorProf(Integer idProfesor){
-        return ServiceLocator.getInstanceAsignacionDAO().findFromWhere("idprofesor", "id",String.valueOf(idProfesor));
+        return ServiceLocator.getInstanceAsignacionDAO().findFromWhere("idProfesor", "id",String.valueOf(idProfesor));
     }
 
 

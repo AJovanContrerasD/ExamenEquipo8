@@ -16,6 +16,9 @@ public class AsignacionDAO extends AbstractDAO<Asignacion> {
         this.entityManager = em;
     }
 
+
+
+
     public List<Asignacion> obtenerTodos(){
         return entityManager
                 .createQuery("SELECT s FROM Asignacion s", Asignacion.class)

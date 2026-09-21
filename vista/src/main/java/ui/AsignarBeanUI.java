@@ -141,7 +141,7 @@ public class AsignarBeanUI implements Serializable {
             LocalTime auxHFin = asignacion.getHoraFin();
 
             for(Asignacion i : asignacionesExistentes){
-               if(i.getDiaSemana().equalsIgnoreCase(asignacion.getDiaSemana())){
+               if(i.getDiaSemana().equals(asignacion.getDiaSemana())){
                    if(auxHInicio.isBefore(i.getHoraFin()) && auxHFin.isAfter(i.getHoraInicio()))
                    {
                        mensajeError("La hora ingresada se traslapa con otra materia registrada de " + i.getHoraInicio() + "-"+ i.getHoraFin());
@@ -180,6 +180,7 @@ public class AsignarBeanUI implements Serializable {
     asignacion.setHoraInicio(asignacion.getHoraInicio());
     asignacion.setHoraFin(asignacion.getHoraFin());
     helper.registrarAsignacion(asignacion);
+            this.listaAsignaciones = helper.obtenerAsignaciones();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Asignacion Registrada", "La asignacion fue registrada correctamente!"));
         } catch (Exception e){

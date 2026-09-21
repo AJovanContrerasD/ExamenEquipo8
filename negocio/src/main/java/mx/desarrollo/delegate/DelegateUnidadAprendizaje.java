@@ -18,6 +18,11 @@ public class DelegateUnidadAprendizaje {
         ServiceLocator.getInstanceUnidadAprendizajeDAO().delete(unidadAprendizaje);
     }
 
+    public List<UnidadAprendizaje> getTodasUnidades(){
+        return ServiceLocator.getInstanceUnidadAprendizajeDAO().findAll();
+
+    }
+
     public List<UnidadAprendizaje> findAll(){
         return ServiceLocator.getInstanceUnidadAprendizajeDAO().findAll();
     }

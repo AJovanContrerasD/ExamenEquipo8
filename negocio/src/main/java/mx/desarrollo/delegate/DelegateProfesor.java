@@ -22,4 +22,9 @@ public class DelegateProfesor {
         return ServiceLocator.getInstanceProfesorDAO().findAll();
     }
 
+
+    public List<Profesor> getTodosProfesores(){
+        return ServiceLocator.getInstanceProfesorDAO().findAll();
+    }
+
 }

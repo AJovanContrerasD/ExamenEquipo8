@@ -25,6 +25,10 @@ public class FacadeProfesor {
         delegateProfesor.deleteProfesor(profesor);
     }
 
+    public List<Profesor> obtenerTodosProfesores() {
+        return delegateProfesor.getTodosProfesores();
+    }
+
     public List<Profesor> findAll(){
         return delegateProfesor.findAll();
     }

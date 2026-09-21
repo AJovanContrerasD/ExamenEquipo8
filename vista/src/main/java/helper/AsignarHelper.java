@@ -6,10 +6,11 @@ import mx.desarrollo.entity.UnidadAprendizaje;
 
 import java.util.List;
 
+
 public class AsignarHelper {
 
     public List<Profesor> obtenerProfesores(){
-        return ServiceFacadeLocator.getInstanceFacadeProfesor().findAll();
+        return ServiceFacadeLocator.getInstanceFacadeProfesor().obtenerTodosProfesores();
     }
 
     public void registrarAsignacion(Asignacion asignacion){
@@ -22,20 +23,20 @@ public class AsignarHelper {
 
     public boolean borrarAsignacion(Integer idAsignacion){
         try{
-        ServiceFacadeLocator.getInstanceFacadeAsignacion().borrarAsignacion(idAsignacion);
-        return true;} catch (Exception ex){
+            ServiceFacadeLocator.getInstanceFacadeAsignacion().borrarAsignacion(idAsignacion);
+            return true;} catch (Exception ex){
             return false;
         }
     }
 
     public List<Asignacion> obtenerAsignacionesProf(Integer idProfesor){
-    return ServiceFacadeLocator.getInstanceFacadeAsignacion().obtenerAsignacionesProf(idProfesor);
+        return ServiceFacadeLocator.getInstanceFacadeAsignacion().obtenerAsignacionesProf(idProfesor);
 
     }
 
     public List<UnidadAprendizaje> obtenerUnidades (){
 
-        return ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
+        return ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().obtenerTodasUnidades();
 
     }
 }

@@ -25,6 +25,10 @@ public class FacadeUnidadAprendizaje {
         delegateUnidadAprendizaje.deleteUnidadAprendizaje(unidadAprendizaje);
     }
 
+    public List<UnidadAprendizaje> obtenerTodasUnidades() {
+        return delegateUnidadAprendizaje.getTodasUnidades();
+    }
+
     public List<UnidadAprendizaje> findAll(){
         return delegateUnidadAprendizaje.findAll();
     }
