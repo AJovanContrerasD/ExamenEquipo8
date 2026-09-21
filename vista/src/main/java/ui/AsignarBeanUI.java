@@ -25,9 +25,13 @@ public class AsignarBeanUI implements Serializable {
     private AsignarHelper helper;
     private List<Profesor> listaProfesores;
     private List<UnidadAprendizaje> listaUnidades;
+    private List<Asignacion> listaAsignaciones;
     private Asignacion asignacion;
     private Integer idProfesorElegido, idUnidadElegida;
 
+
+
+    private Integer idAsignacionSelec;
 
 
     private String diaSeleccionado;
@@ -45,6 +49,7 @@ public class AsignarBeanUI implements Serializable {
             helper = new AsignarHelper();
             this.listaProfesores = helper.obtenerProfesores();
             this.listaUnidades = helper.obtenerUnidades();
+            this.listaAsignaciones=helper.obtenerAsignaciones();
             asignacion = new Asignacion();
         }catch (Throwable ex) {
             System.err.println("ERROR EN HIBERNATE: " + ex);
@@ -52,6 +57,20 @@ public class AsignarBeanUI implements Serializable {
         }
     }
 
+    public void borrarAsignacionBD (){
+        try{
+            if(idAsignacionSelec==null){mensajeError("No selecciono ninguna Asignacion");}
+
+            helper.borrarAsignacion(idAsignacionSelec);
+
+            this.listaAsignaciones = helper.obtenerAsignaciones();
+            idAsignacionSelec =null;
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Exito","Unidad Desasignada"));
+        }catch (Exception ex){
+            mensajeError("No se pudo borrar la Asignacion");
+        }
+    }
 
     public List<Profesor> getListaProfesores (){
         return listaProfesores;
@@ -60,6 +79,8 @@ public class AsignarBeanUI implements Serializable {
     public List<UnidadAprendizaje> getListaUnidades (){
         return listaUnidades;
     }
+
+    public List<Asignacion> getListaAsignaciones () {return listaAsignaciones;}
 
     public void setListaUnidades(List<UnidadAprendizaje> listaUnidades){
         this.listaUnidades = listaUnidades;
@@ -167,7 +188,9 @@ public class AsignarBeanUI implements Serializable {
         }
     }
 
+    public void borrarAsignacion(){
 
+    }
 
     private void reiniciarFormulario(){
 
@@ -216,5 +239,8 @@ public class AsignarBeanUI implements Serializable {
         this.diaSeleccionado = diaSeleccionado;
     }
 
+    public Integer getIdAsignacionSelec() {return idAsignacionSelec;}
+
+    public void setIdAsignacionSelec(Integer idAsignacionSelec) {this.idAsignacionSelec = idAsignacionSelec;}
 }
 

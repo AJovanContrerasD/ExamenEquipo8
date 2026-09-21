@@ -16,6 +16,18 @@ public class AsignarHelper {
         ServiceFacadeLocator.getInstanceFacadeAsignacion().guardarAsignacion(asignacion);
     }
 
+    public List<Asignacion> obtenerAsignaciones(){
+        return ServiceFacadeLocator.getInstanceFacadeAsignacion().obtenerTodasAsignaciones();
+    }
+
+    public boolean borrarAsignacion(Integer idAsignacion){
+        try{
+        ServiceFacadeLocator.getInstanceFacadeAsignacion().borrarAsignacion(idAsignacion);
+        return true;} catch (Exception ex){
+            return false;
+        }
+    }
+
     public List<Asignacion> obtenerAsignacionesProf(Integer idProfesor){
     return ServiceFacadeLocator.getInstanceFacadeAsignacion().obtenerAsignacionesProf(idProfesor);
 

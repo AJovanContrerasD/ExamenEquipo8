@@ -18,6 +18,10 @@ public class FacadeAsignacion {
         delegateAsignacion.saveAsignacion(asignacion);
     }
 
+    public void borrarAsignacion (Integer IdAsignacion) {
+        delegateAsignacion.borrarAsignacion(IdAsignacion);
+    }
+
     public List<Asignacion> obtenerTodasAsignaciones() {
         return delegateAsignacion.getTodasAsignaciones();
     }

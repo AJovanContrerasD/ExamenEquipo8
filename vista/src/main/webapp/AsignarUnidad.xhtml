@@ -13,6 +13,7 @@
     <ui:define name="contenido">
         <link rel="stylesheet" type="text/css" href="resources/style.css" />
         <main class="contenedorPrincipal">
+        <div class="ladoIzquierdo">
             <h:form id="formularioAsignacion">
                 <p:messages id="messages" showDetail="true" closable="true"/>
                 <div class="Separador">
@@ -179,6 +180,64 @@
 
 
             </h:form>
+        </div>
+
+            <div class="ladoDerecho">
+                <p:messages id="messages" showDetail="true" closable="true"/>
+
+                <h:form id="formularioDesasignacion">
+
+                <p:selectOneRadio id="GrupoAsignaciones" value="#{AsignarUI.idAsignacionSelec}" layout="custom">
+                    <f:selectItems value="#{AsignarUI.listaAsignaciones}" var="asignacion" itemValue="#{asignacion.id}" itemLabel="#{asignacion.grupo}"/>
+                </p:selectOneRadio>
+                    <h2>Des-asignar Unidades</h2>
+                <table id="tablaAsignaciones">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Unidad</th>
+                        <th>Prof.Asignado</th>
+                        <th>Dia. Semana</th>
+                        <th>Horario</th>
+                        <th>    </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ui:repeat value="#{AsignarUI.listaAsignaciones}" var="Asignacion" varStatus="status" >
+                        <tr>
+                            <td>
+                                <h:outputText value="#{Asignacion.id}"/>
+                            </td>
+                            <td>
+                                <h:outputText value="#{Asignacion.idunidad.nombre}"/>
+                            </td>
+                            <td>
+                                <h:outputText value="#{Asignacion.idprofesor.nombre} #{Asignacion.idprofesor.appaterno} #{Asignacion.idprofesor.apmaterno}"/>
+                            </td>
+                            <td>
+                                <h:outputText value="#{Asignacion.diasemana}"/>
+                            </td>
+                            <td>
+                                <h:outputText value="#{Asignacion.horainicio} - #{Asignacion.horafin}"/>
+                            </td>
+                            <td>
+                                <p:radioButton for="@form:GrupoAsignaciones" itemIndex="#{status.index}"/>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                    <h:commandButton value="borrarAsignacion" action="#{AsignarUI.borrarAsignacionBD}"
+                                     onclick="return confirm('¿Eliminar asignacion seleccionada?')" style="
+                        background-color: #ff1c52;
+                        color: white;
+                        font-weight: bold;
+                        padding: 10px 20px;"/>
+                </h:form>
+            </div>
+
+
         </main>
 
 
