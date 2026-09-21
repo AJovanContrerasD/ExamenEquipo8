@@ -95,10 +95,23 @@ public class AsignarBeanUI implements Serializable {
                 mensajeError("Ingrese hora de salida y hora fin");
                 return;
             }
+
            if( asignacion.getHorafin().isBefore(asignacion.getHorainicio()) || asignacion.getHorainicio().isAfter(asignacion.getHorafin() )){
                mensajeError("La hora de clase no es valida");
                return;
            }
+
+           if(asignacion.getHorafin().isAfter(LocalTime.of(22, 0, 0)) ||
+                   asignacion.getHorainicio().isBefore(LocalTime.of(7,0,0)))
+           {
+               mensajeError("Horario fuera del limite establecido");
+               return;
+           }
+
+            if(asignacion.getHorainicio().getMinute() != 0|| asignacion.getHorafin().getMinute()!=0){
+                mensajeError("Ingrese unicamente horas \"en punto\" (en cero minutos)");
+                return;
+            }
 
            Integer auxIdProfesor = idProfesorElegido;
 
@@ -116,6 +129,8 @@ public class AsignarBeanUI implements Serializable {
                }
 
            }
+
+
 
 
             Administrador administrador = loginUI.getUsuario();

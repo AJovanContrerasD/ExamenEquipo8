@@ -141,9 +141,9 @@
                     </div>
 
                     <div class="campoFormu">
-                        <p:outputLabel for="semestre" value="Semestre" />
-                        <p:spinner id="semestre" styleClass="fieldLarge" placeholder="Semestre" value="#{AsignarUI.asignacion.semestre}"
-                        min="1" max="8" required="true"/>
+                        <p:outputLabel for="periodo" value="Periodo:" />
+                        <p:inputText id="periodo" styleClass="fieldLarge" placeholder="Periodo" maxlenght="10" value="#{AsignarUI.asignacion.semestre}"
+                        />
                     </div>
 
                     <div class="campoFormu">
@@ -165,11 +165,11 @@
                         <div class="columnaHoras">
                     <p:outputLabel for="hinicio" value="Hora Inicio: " />
                         <p:datePicker id="hinicio" value="#{AsignarUI.asignacion.horainicio}" timeOnly="true" pattern="HH:mm"
-                                      required="true"/>
+                                      stepMinute="60" required="true"/>
                         </div>
                         <div class="columnaHoras">
                         <p:outputLabel for="hfin" value="Hora Fin: " />
-                        <p:datePicker id="hfin" value="#{AsignarUI.asignacion.horafin}" timeOnly="true" pattern="HH:mm"
+                        <p:datePicker id="hfin" value="#{AsignarUI.asignacion.horafin}" timeOnly="true" pattern="HH:mm" stepMinute="60"
                                       required="true"/>
                         </div>
                     </div>
