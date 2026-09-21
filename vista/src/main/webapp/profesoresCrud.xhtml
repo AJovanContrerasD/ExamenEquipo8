@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/plantilla/plantilla.xhtml">
+
+    <ui:define name="titulo"> pon tu titulo </ui:define>
+    <ui:define name="subtitulo"> pon tu subtitulo </ui:define>
+
+    <ui:define name="contenido">
+        <style>
+            .card {
+                background-color: #f7fdf4;
+                width: 90%;
+                margin: 30px auto;
+                border-radius: 15px;
+                padding: 25px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                min-height: 500px;
+                box-sizing: border-box;
+            }
+
+            .busqueda {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                gap: 15px;
+            }
+
+            .busq {
+                flex-grow: 1;
+                padding: 10px 15px 10px 40px;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+                font-size: 16px;
+                background-image: url('resources/search-icon.png');
+                background-repeat: no-repeat;
+                background-position: 12px center;
+                background-size: 18px;
+                outline: none;
+                box-sizing: border-box;
+            }
+
+            .btn-registrar {
+                background-color: #00aa4f;
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            .box-modificar {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                border: 1px solid #bce2a8;
+                margin-bottom: 20px;
+            }
+
+            .tabla {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: white;
+            }
+
+            .tabla th {
+                text-align: center;
+                background-color: #d1f7be;
+                color: #3f782c;
+                padding: 12px;
+                border: 2px solid #a2e283;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .tabla td {
+                text-align: center;
+                padding: 12px;
+                border: 2px solid #a2e283;
+                color: #555555;
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+            .acciones {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .btn-icono {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+            }
+
+            .btn-icono img {
+                width: 24px;
+                height: 24px;
+            }
+        </style>
+
+        <div class="card">
+            <h:form id="formProfesor">
+
+                <div class="busqueda">
+                    <h:inputText styleClass="busq" value="#{profesorBean.filtroBusqueda}" placeholder="Buscar..."/>
+                    <h:commandButton value="Buscar" styleClass="btn-registrar" action="#{profesorBean.buscar()}" />
+                </div>
+
+                <h:panelGroup id="boxEdicion" rendered="#{profesorBean.profesorSeleccionado != null}" layout="block" styleClass="box-modificar">
+                    <h3>Modificar un profesor</h3>
+
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nombre :"/>
+                        <h:inputText value="#{profesorBean.profesorSeleccionado.nombre}"/>
+
+                        <h:outputLabel value="Apellido paterno:"/>
+                        <h:inputText value="#{profesorBean.profesorSeleccionado.appaterno}"/>
+
+                        <h:outputLabel value="Apellido Materno:"/>
+                        <h:inputText value="#{profesorBean.profesorSeleccionado.apmaterno}"/>
+
+                        <h:outputLabel value="RFC:"/>
+                        <h:inputText value="#{profesorBean.profesorSeleccionado.rfc}" />
+                    </h:panelGrid>
+
+
+                    <br/>
+                    <h:commandButton value="Guardar cambios" action="#{profesorBean.guardarEdicion()}" />
+                    <h:commandButton value="Cancelar" action="#{profesorBean.cancelarEdicion()}" style="margin-left: 10px;" />
+                </h:panelGroup>
+
+                <h:dataTable value="#{profesorBean.listaProfesores}" var="prof" styleClass="tabla">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        <h:outputText value="##{prof.id}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{prof.nombre}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Apellido Paterno</f:facet>
+                        <h:outputText value="#{prof.appaterno}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Apellido Materno</f:facet>
+                        <h:outputText value="#{prof.apmaterno}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">RFC</f:facet>
+                        <h:outputText value="#{prof.rfc}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"></f:facet>
+                        <div class="acciones">
+                            <h:commandLink action="#{profesorBean.setProfesorSeleccionado(prof)}" styleClass="btn-icono">
+                                <h:graphicImage url="resources/edit-icon.png"/>
+                            </h:commandLink>
+                            <h:commandLink action="#{profesorBean.elim(prof)}" onclick="return confirm('Seguro de eliminarlo?');" styleClass="btn-icono">
+                                <h:graphicImage url="resources/elimin-icon.png"/>
+                            </h:commandLink>
+                        </div>
+                    </h:column>
+                </h:dataTable>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
