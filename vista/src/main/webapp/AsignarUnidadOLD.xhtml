@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="/plantilla/plantilla.xhtml">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Asignación de Unidad de Aprendizaje</title>
+    <link rel="stylesheet" type="text/css" href="resources/style.css" />
+</h:head>
+
+<h:body>
+<header>
+    <div class="cabezaPagina">
+        <h1>SEUAP</h1>
+    </div>
+
+    <div class="logo">
+        <img alt="logosuap" src="logoSuap.png" width="120" height="120" />
+    </div>
+</header>
+
+<main class="contenedorPrincipal">
+    <h:form class="formularioAsignacion">
+<div class="Separador">
+
+    <div class="columna">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Buscar_materia" />
+        </div>
+        <div class="card">
+            <table class="datosTabla">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre asignatura</th>
+                    <th>Selecc.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="centro">123</td>
+                    <td>Calculo Diferencial</td>
+                    <td class="center"><input type="checkbox" name="materia" /></td>
+                </tr>
+                <tr>
+                    <td class="centro">231</td>
+                    <td>Programacion estructurada</td>
+                    <td class="center"><input type="checkbox" name="materia" /></td>
+                </tr>
+                <tr>
+                    <td class="centro">521</td>
+                    <td>Calculo Integral</td>
+                    <td class="centro"><input type="checkbox" name="materia" /></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="datosTabla">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Profesor</th>
+                    <th>Selecc.</th>
+                </tr>
+                </thead>
+                        <tbody>
+                        <ui:repeat value="#{AsignarUI.listaProfesores}" var="profesor">
+                            <tr>
+                                <td class="centro">
+                                    <h:outputText value="#{profesor.id}"/>
+                                </td>
+                                <td class="centro">
+                                    <h:outputText value="#{profesor.nombre} #{profesor.appaterno} #{profesor.apmaterno}"/>
+                                </td>
+
+                                <td>
+                                    <input type="radio" name="profesor" value="#{profesor.id}"/>
+                                </td>
+
+                            </tr>
+
+                        </ui:repeat>
+                        </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+    </h:form>
+</main>
+
+
+<script type="text/javascript" src="index.js"></script>
+</h:body>
+</html>

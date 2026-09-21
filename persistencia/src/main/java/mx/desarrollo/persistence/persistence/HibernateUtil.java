@@ -18,7 +18,8 @@ public class HibernateUtil {
         try {
             return Persistence.createEntityManagerFactory("persistencePU");
         } catch (Throwable ex) {
-            System.err.println("Error creando EntityManagerFactory: " + ex);
+            System.err.println("ERROR EN HIBERNATE: " + ex);
+            ex.printStackTrace();
             throw new ExceptionInInitializerError(ex);
         }
     }
