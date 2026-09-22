@@ -13,6 +13,10 @@
         <div class="card">
             <h:form id="formProfesor">
 
+                <p:messages id="messages" showDetail="true" closable="true">
+
+                </p:messages>
+
                 <div class="busqueda">
                     <h:inputText styleClass="busq" value="#{unidadUI.filtroBusqueda}" placeholder="Buscar..."/>
                     <h:commandButton value="Buscar" styleClass="btn-registrar" action="#{unidadUI.buscar()}" />
@@ -23,22 +27,22 @@
 
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Nombre :"/>
-                        <h:inputText value="#{unidadUI.unidadSeleccionada.nombre}"/>
+                        <h:inputText maxlength="50" autocomplete="false" required="true" value="#{unidadUI.unidadSeleccionada.nombre}"/>
 
                         <h:outputLabel value="Horas de clase:"/>
-                        <h:inputText value="#{unidadUI.unidadSeleccionada.horasClase}"/>
+                        <h:inputText type="number" autocomplete="false" required="true" value="#{unidadUI.unidadSeleccionada.horasClase}"> <f:validateLongRange minimum="0" maximum="4" /> </h:inputText>
 
                         <h:outputLabel value="Horas de taller:"/>
-                        <h:inputText value="#{unidadUI.unidadSeleccionada.horasTaller}"/>
+                        <h:inputText type="number" autocomplete="false" required="true" value="#{unidadUI.unidadSeleccionada.horasTaller}"> <f:validateLongRange minimum="0" maximum="4" /> </h:inputText>
 
                         <h:outputLabel value="Horas de laboratorio:"/>
-                        <h:inputText value="#{unidadUI.unidadSeleccionada.horasLaboratorio}"/>
+                        <h:inputText type="number" autocomplete="false" required="true" value="#{unidadUI.unidadSeleccionada.horasLaboratorio}"> <f:validateLongRange minimum="0" maximum="4" /> </h:inputText>
                     </h:panelGrid>
 
 
                     <br/>
                     <h:commandButton value="Guardar cambios" action="#{unidadUI.guardarEdicion()}" />
-                    <h:commandButton value="Cancelar" action="#{unidadUI.cancelarEdicion()}" style="margin-left: 10px;" />
+                    <h:commandButton value="Cancelar" immediate="true" action="#{unidadUI.cancelarEdicion()}" style="margin-left: 10px;" />
                 </h:panelGroup>
 
                 <h:dataTable value="#{unidadUI.listaUnidades}" var="u" styleClass="tabla">
