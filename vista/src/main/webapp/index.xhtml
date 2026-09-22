@@ -3,207 +3,103 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <title>SAUAP</title>
-    <style>
-        body{
-            font-family: Arial;
-            background-color: #4F9D69;
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        header{
-            display: flex;
-            align-items: center;
-            width: 100%;
-            height: 80px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25);
-            background-color: #FFFDF9;
-            position: relative;
-            z-index: 10;
-        }
-        #titleDiv{
-            padding-left: 2%;
-        }
-        #menu{
-            padding-left: 2%;
-        }
-        #titulo{
-            text-align: left;
-            font-size:25px;
-            font-weight: bold;
-            background: -webkit-linear-gradient(270deg, #29c551, #8effc1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        #subtitulo{
-            font-size:16px;
-            text-align: left;
-            font-weight: normal;
-            color: #5da180;
-        }
-        #btnMenu{
-            width: 30px;
-            height: 30px;
-        }
-        #salirDiv{
-            margin-left: auto;
-            padding-right: 2%;
-        }
-        #salir{
-            color: #4FA974;
-            font-weight: bold;
-            font-size: 14px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        #salir:hover{
-            text-decoration: underline;
-        }
-        #contenedorPrincipal{
-            display: flex;
-            min-height: calc(100vh - 80px);
-        }
-        #sidebar{
-            width: 200px;
-            background-color: #4FA974;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-        #sidebar.hidden{
-            margin-left: -230px;
-        }
-        #sidebar button{
-            padding: 8px;
-            margin-bottom: 14px;
-            cursor: pointer;
-            border: none;
-            border-radius: 25px;
-            background-color: #FFFDF9;
-            color: #21bd6e;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.25);
-            transition: 0.2s;
-        }
-        #sidebar button:hover{
-            background-color: #f6f6f6;
-            color: #4FA974;
-            transform: translateY(-2px);
-        }
-        #contenido{
-            flex: 1;
-            padding: 20px;
-            overflow: auto;
-            background-color: #F7F9F4;
-        }
-        .tarjetas{
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px 0;
-        }
-        .tarjeta{
-            width: 230px;
-            height: 320px;
-            background: #FFFFFF;
-            border-radius: 14px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px 24px;
-            box-sizing: border-box;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
-        }
-        .tarjeta:hover{
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
-        }
-        .tarjeta .icono{
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .tarjeta .icono-img{
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
-        }
-        .tarjeta .nombre{
-            font-size: 17px;
-            font-weight: bold;
-            color: #1B1B1B;
-            margin: 0;
-            text-align: left;
-        }
-    </style>
-    <script>
-        function abrirSidebar(){
-            var sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('hidden');
-        }
-    </script>
-</h:head>
-<h:body>
-    <header>
-        <div id="menu"> <button id="btnMenu" onclick="abrirSidebar()"> </button> </div>
-        <div id="logo"> </div>
-        <div id="titleDiv">
-            <div id="titulo"> SAUAP </div>
-            <div id="subtitulo"> Menu </div>
-        </div>
-        <div id="salirDiv">
-            <h:form id="formSalirHeader">
-                <h:commandLink id="salir" value="Cerrar sesion" actionListener="#{loginUI.logout()}" />
-            </h:form>
-        </div>
-    </header>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <div id="contenedorPrincipal">
-        <div id="sidebar">
-            <button type="button" id="seccion" onclick="window.location.href='index.xhtml'"> Inicio </button>
-            <button type="button" id="seccion" onclick="window.location.href='profesores.xhtml'"> Profesores </button>
-            <button type="button" id="seccion" onclick="window.location.href='unidades.xhtml'"> Materias </button>
-            <button type="button" id="seccion" onclick="window.location.href='asignaciones.xhtml'"> Asignaciones </button>
-            <button type="button" id="seccion" onclick="window.location.href='consulta.xhtml'"> Consulta general </button>
+<ui:composition template="/plantilla/plantilla.xhtml">
+
+    <ui:define name="titulo">Menu</ui:define>
+    <ui:define name="subtitulo">Selecciona una seccion para comenzar</ui:define>
+
+    <ui:define name="contenido">
+        <style>
+            .tarjetas{
+                display: grid;
+                grid-template-columns: repeat(3, 230px);
+                gap: 30px;
+                justify-content: center;
+                padding: 20px 0;
+            }
+            .tarjeta{
+                width: 230px;
+                height: 320px;
+                background: #FFFFFF;
+                border-radius: 14px;
+                text-decoration: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 30px 24px;
+                box-sizing: border-box;
+                box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+            }
+            .tarjeta:hover{
+                box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            }
+            .tarjeta .icono{
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .tarjeta .icono-img{
+                width: 90px;
+                height: 90px;
+                object-fit: contain;
+            }
+            .tarjeta .nombre{
+                font-size: 17px;
+                font-weight: bold;
+                color: #1B1B1B;
+                margin: 0;
+                text-align: left;
+            }
+        </style>
+
+        <div class="tarjetas">
+            <h:link outcome="registroProfesores" styleClass="tarjeta">
+                <div class="icono">
+                    <p:graphicImage url="resources/profesores.png" styleClass="icono-img" />
+                </div>
+                <p class="nombre">Registro de profesores</p>
+            </h:link>
+
+            <h:link outcome="registroUnidades" styleClass="tarjeta">
+                <div class="icono">
+                    <p:graphicImage url="resources/unidades.png" styleClass="icono-img" />
+                </div>
+                <p class="nombre">Registro de unidades</p>
+            </h:link>
+
+            <h:link outcome="unidadesCrud" styleClass="tarjeta">
+                <div class="icono">
+                    <p:graphicImage url="resources/ConsultaUnidades.png" styleClass="icono-img" />
+                </div>
+                <p class="nombre">Consulta de unidades</p>
+            </h:link>
+
+            <h:link outcome="profesoresCrud" styleClass="tarjeta">
+                <div class="icono">
+                    <p:graphicImage url="resources/ConsultaProfesores.png" styleClass="icono-img" />
+                </div>
+                <p class="nombre">Consulta de profesores</p>
+            </h:link>
+
+            <h:link outcome="AsignarUnidad" styleClass="tarjeta">
+                <div class="icono">
+                    <p:graphicImage url="resources/asignaciones.png" styleClass="icono-img" />
+                </div>
+                <p class="nombre">Asignación de materias</p>
+            </h:link>
+
+            <h:link outcome="consulta" styleClass="tarjeta">
+                <div class="icono">
+                    <p:graphicImage url="resources/consulta.png" styleClass="icono-img" />
+                </div>
+                <p class="nombre">Consulta general</p>
+            </h:link>
         </div>
-        <div id="contenido">
-            <div class="tarjetas">
-                <h:link outcome="profesores" styleClass="tarjeta">
-                    <div class="icono">
-                        <p:graphicImage url="resources/images/icono-profesores.png" styleClass="icono-img" />
-                    </div>
-                    <p class="nombre">Alta de profesores</p>
-                </h:link>
+    </ui:define>
 
-                <h:link outcome="unidades" styleClass="tarjeta">
-                    <div class="icono">
-                        <p:graphicImage url="resources/images/icono-unidades.png" styleClass="icono-img" />
-                    </div>
-                    <p class="nombre">Unidades de aprendizaje</p>
-                </h:link>
-
-                <h:link outcome="asignaciones" styleClass="tarjeta">
-                    <div class="icono">
-                        <p:graphicImage url="resources/images/icono-asignaciones.png" styleClass="icono-img" />
-                    </div>
-                    <p class="nombre">Asignaciones</p>
-                </h:link>
-
-                <h:link outcome="consulta" styleClass="tarjeta">
-                    <div class="icono">
-                        <p:graphicImage url="resources/images/icono-consulta.png" styleClass="icono-img" />
-                    </div>
-                    <p class="nombre">Consulta general</p>
-                </h:link>
-            </div>
-        </div>
-    </div>
-</h:body>
+</ui:composition>
 </html>

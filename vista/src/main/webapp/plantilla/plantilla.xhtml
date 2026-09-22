@@ -51,16 +51,35 @@
         #salirDiv{
             margin-left: auto;
             padding-right: 2%;
+            display: flex;
+            align-items: center;
         }
-        #salir{
+        .btn-salir{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #FFFFFF;
             color: #4FA974;
             font-weight: bold;
             font-size: 14px;
             text-decoration: none;
             cursor: pointer;
+            padding: 6px 14px;
+            border: 2px solid #4FA974;
+            border-radius: 25px;
+            transition: 0.2s;
+            max-height: 35px;
+            box-sizing: border-box;
         }
-        #salir:hover{
-            text-decoration: underline;
+        .btn-salir img{
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+        .btn-salir:hover{
+            background-color: #24221e;
+            color: #FFFFFF;
+            transform: translateY(-2px);
         }
         #contenedorPrincipal{
             display: flex;
@@ -180,7 +199,7 @@
             border-radius: 20px;
             border: 1px solid #ccc;
             font-size: 16px;
-            background-image: url('resources/search-icon.png');
+            background-image: url('resources/buscar.png');
             background-repeat: no-repeat;
             background-position: 12px center;
             background-size: 18px;
@@ -268,7 +287,10 @@
         </div>
         <div id="salirDiv">
             <h:form id="formSalirHeader">
-                <h:commandLink id="salir" value="Cerrar sesion" actionListener="#{loginUI.logout()}" />
+                <h:commandLink id="salir" styleClass="btn-salir" actionListener="#{loginUI.logout()}">
+                    <p:graphicImage url="resources/icono-salir.png" />
+                    <h:outputText value="Cerrar sesion" />
+                </h:commandLink>
             </h:form>
         </div>
     </header>
@@ -276,9 +298,11 @@
     <div id="contenedorPrincipal">
         <div id="sidebar">
             <button type="button" id="seccion" onclick="window.location.href='index.xhtml'"> Inicio </button>
-            <button type="button" id="seccion" onclick="window.location.href='registroProfesores.xhtml'"> Profesores </button>
-            <button type="button" id="seccion" onclick="window.location.href='unidades.xhtml'"> Materias </button>
-            <button type="button" id="seccion" onclick="window.location.href='asignaciones.xhtml'"> Asignaciones </button>
+            <button type="button" id="seccion" onclick="window.location.href='registroProfesores.xhtml'"> Registro de Profesores </button>
+            <button type="button" id="seccion" onclick="window.location.href='registroUnidades.xhtml'"> Registro de Unidades </button>
+            <button type="button" id="seccion" onclick="window.location.href='unidadesCrud.xhtml'"> Consulta de unidades </button>
+            <button type="button" id="seccion" onclick="window.location.href='profesoresCrud.xhtml'"> Consulta de profesores </button>
+            <button type="button" id="seccion" onclick="window.location.href='AsignarUnidad.xhtml'"> Asignaciones </button>
             <button type="button" id="seccion" onclick="window.location.href='consulta.xhtml'"> Consulta general </button>
         </div>
         <div id="contenido">

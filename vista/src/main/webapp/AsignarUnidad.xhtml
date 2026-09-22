@@ -6,246 +6,210 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/plantilla/plantilla.xhtml">
 
-    <ui:define name="titulo"> Asignacion a Unidades de Aprendizajes  </ui:define>
+    <ui:define name="titulo"> Asignacion a Unidades de Aprendizaje </ui:define>
     <ui:define name="subtitulo"> A docentes registrados </ui:define>
-
 
     <ui:define name="contenido">
         <link rel="stylesheet" type="text/css" href="resources/style.css" />
+        <style>
+            .seccion{
+                background: #FFFFFF;
+                border-radius: 14px;
+                padding: 20px 24px;
+                margin-bottom: 22px;
+                box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+                box-sizing: border-box;
+            }
+            .seccion h5, .seccion h2{
+                margin: 0 0 14px;
+                color: #1B1B1B;
+            }
+            .dosColumnas{
+                display: flex;
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+            .dosColumnas .seccion{
+                flex: 1;
+                min-width: 320px;
+            }
+            .filaDatos{
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                margin-top: 10px;
+            }
+            .campoFormu{
+                flex: 1;
+                min-width: 180px;
+            }
+            .campoFormu label{
+                display: block;
+                font-weight: bold;
+                margin-bottom: 4px;
+                font-size: 13.5px;
+            }
+        </style>
+
         <main class="contenedorPrincipal">
-        <div class="ladoIzquierdo">
-            <h:form id="formularioAsignacion">
-                <p:messages id="messages" showDetail="true" closable="true"/>
-                <div class="Separador">
 
-                    <div class="columna">
+            <div class="dosColumnas">
 
+                <h:form id="formularioAsignacion">
+                    <p:messages id="messagesAsignacion" showDetail="true" closable="true"/>
 
-
+                    <div class="seccion">
+                        <h5>Unidades de aprendizaje</h5>
                         <p:selectOneRadio id="GrupoMateria" value="#{AsignarUI.idUnidadElegida}" layout="custom">
                             <f:selectItems value="#{AsignarUI.listaUnidades}" var="unidad" itemValue="#{unidad.id}" itemLabel="#{unidad.nombre}"/>
                         </p:selectOneRadio>
 
-
-                    <h5>Unidades de Aprendizaje</h5>
-                              <div class="carta">
-                            <table id="tablaUnidades" class="datosTabla">
-                                <thead>
+                        <table id="tablaUnidades" class="datosTabla">
+                            <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombre Unidad</th>
+                                    <th>Nombre unidad</th>
                                     <th>H. Taller</th>
                                     <th>H. Lab</th>
                                     <th>H. Clase</th>
                                     <th>Selecc.</th>
                                 </tr>
-                                </thead>
-
-
-                                <tbody>
+                            </thead>
+                            <tbody>
                                 <ui:repeat value="#{AsignarUI.listaUnidades}" var="UnidadAprendizaje" varStatus="status">
                                     <tr>
-                                        <td class="centro">
-                                            <h:outputText value="#{UnidadAprendizaje.id}"/>
-                                        </td>
-                                        <td class="centro">
-                                            <h:outputText value="#{UnidadAprendizaje.nombre}"/>
-                                        </td>
-
-                                        <td>
-                                            <h:outputText value="#{UnidadAprendizaje.horasTaller}"/>
-                                        </td>
-
-
-                                        <td>
-                                            <h:outputText value="#{UnidadAprendizaje.horasLaboratorio}"/>
-                                        </td>
-
-
-                                        <td>
-                                            <h:outputText value="#{UnidadAprendizaje.horasClase}"/>
-
-                                        </td>
-                                        <td>
-                                            <p:radioButton for="@form:GrupoMateria" itemIndex="#{status.index}"/>
-
-                                        </td>
-
+                                        <td class="centro"><h:outputText value="#{UnidadAprendizaje.id}"/></td>
+                                        <td class="centro"><h:outputText value="#{UnidadAprendizaje.nombre}"/></td>
+                                        <td class="centro"><h:outputText value="#{UnidadAprendizaje.horasTaller}"/></td>
+                                        <td class="centro"><h:outputText value="#{UnidadAprendizaje.horasLaboratorio}"/></td>
+                                        <td class="centro"><h:outputText value="#{UnidadAprendizaje.horasClase}"/></td>
+                                        <td class="centro"><p:radioButton for="@form:GrupoMateria" itemIndex="#{status.index}"/></td>
                                     </tr>
                                 </ui:repeat>
-                                </tbody>
-                                  </table>
+                            </tbody>
+                        </table>
+                    </div>
 
+                    <div class="seccion">
+                        <h5>Profesores activos</h5>
+                        <p:selectOneRadio id="GrupoProfesor" value="#{AsignarUI.idProfesorElegido}" layout="custom">
+                            <f:selectItems value="#{AsignarUI.listaProfesores}" var="profesor" itemValue="#{profesor.id}" itemLabel="#{profesor.nombre}"/>
+                        </p:selectOneRadio>
 
-                              </div>
-                        <div class="columna">
-
-                            <p:selectOneRadio id="GrupoProfesor" value="#{AsignarUI.idProfesorElegido}" layout="custom">
-                                <f:selectItems value="#{AsignarUI.listaProfesores}" var="profesor" itemValue="#{profesor.id}" itemLabel="#{profesor.nombre}"/>
-                            </p:selectOneRadio>
-
-
-                            <h5>Profesores Activos</h5>
-                            <table id="tablaProf" class="datosTabla">
-                                <thead>
+                        <table id="tablaProf" class="datosTabla">
+                            <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombre Profesor</th>
+                                    <th>Nombre profesor</th>
                                     <th>Selecc.</th>
                                 </tr>
-                                </thead>
-
-
-                                <tbody>
+                            </thead>
+                            <tbody>
                                 <ui:repeat value="#{AsignarUI.listaProfesores}" var="profesor" varStatus="status">
                                     <tr>
-                                        <td class="centro">
-                                            <h:outputText value="#{profesor.id}"/>
-                                        </td>
-                                        <td class="centro">
-                                            <h:outputText value="#{profesor.nombre}"/>
-                                        </td>
-
-
-
-
-                                        <td>
-                                            <p:radioButton for="@form:GrupoProfesor" itemIndex="#{status.index}"/>
-
-                                        </td>
-
+                                        <td class="centro"><h:outputText value="#{profesor.id}"/></td>
+                                        <td class="centro"><h:outputText value="#{profesor.nombre}"/></td>
+                                        <td class="centro"><p:radioButton for="@form:GrupoProfesor" itemIndex="#{status.index}"/></td>
                                     </tr>
                                 </ui:repeat>
-                                </tbody>
-                            </table>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="seccion">
+                        <h5>Datos de la asignacion</h5>
+                        <div class="filaDatos">
+                            <div class="campoFormu">
+                                <label>Grupo</label>
+                                <p:inputText styleClass="fieldLarge" placeholder="Grupo" maxlength="50" autocomplete="false" required="true" value="#{AsignarUI.asignacion.grupo}"/>
+                            </div>
+                            <div class="campoFormu">
+                                <p:outputLabel for="periodo" value="Periodo" />
+                                <p:inputText id="periodo" styleClass="fieldLarge" placeholder="Periodo" maxlength="10" value="#{AsignarUI.asignacion.semestre}"/>
+                            </div>
+                        </div>
+
+                        <div class="filaDatos">
+                            <div class="campoFormu">
+                                <p:outputLabel for="hinicio" value="Hora inicio" />
+                                <p:datePicker id="hinicio" value="#{AsignarUI.asignacion.horaInicio}" timeOnly="true" pattern="HH:mm" stepMinute="60" required="true"/>
+                            </div>
+                            <div class="campoFormu">
+                                <p:outputLabel for="hfin" value="Hora fin" />
+                                <p:datePicker id="hfin" value="#{AsignarUI.asignacion.horaFin}" timeOnly="true" pattern="HH:mm" stepMinute="60" required="true"/>
+                            </div>
+                        </div>
+
+                        <div class="campoFormu" style="margin-top: 14px;">
+                            <p:outputLabel value="Dia de la semana" />
+                            <br/>
+                            <p:selectOneRadio value="#{AsignarUI.diaSeleccionado}" layout="grid" columns="3">
+                                <f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+                                <f:selectItem itemLabel="Martes" itemValue="Martes" />
+                                <f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
+                                <f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+                                <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+                            </p:selectOneRadio>
                         </div>
                     </div>
 
-
-                </div>
-
-                        <div class="btnGuardar">
-                        <h:commandButton value="Registrar Asignacion" action="#{AsignarUI.guardarAsignacion}" style="
+                    <div class="btnGuardar">
+                        <h:commandButton value="Registrar asignacion" action="#{AsignarUI.guardarAsignacion}" style="
                         background-color: #ffcd50;
                         color: white;
                         font-weight: bold;
                         padding: 10px 20px;"/>
-                        </div>
-                <div id="cuadroExtra">
-                    <div id="cuadroExtraIzquierda">
-                    <br/>
-                    <br/><br/>
-                    <div class="campoFormu">
-                        <label>Grupo:</label>
-                        <br/>
-                        <p:inputText styleClass="fieldLarge" placeholder="Grupo" maxlength="50" autocomplete="false" required="true" value="#{AsignarUI.asignacion.grupo}"/>
                     </div>
-
-                    <div class="campoFormu">
-                        <p:outputLabel for="periodo" value="Periodo:" />
-                        <p:inputText id="periodo" styleClass="fieldLarge" placeholder="Periodo" maxlenght="10" value="#{AsignarUI.asignacion.semestre}"
-                        />
-                    </div>
-
-                    <div class="campoFormu">
-                        <p:outputLabel value="Dias de la semana" />
-                        <p:selectOneRadio value="#{AsignarUI.diaSeleccionado}" layout="grid" columns="3">
-                        <f:selectItem itemLabel="Lunes" itemValue="Lunes" />
-                        <f:selectItem itemLabel="Martes" itemValue="Martes" />
-                            <br/>
-                        <f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
-                        <f:selectItem itemLabel="Jueves" itemValue="Jueves" />
-                        <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
-                        </p:selectOneRadio>
-
-                    </div>
-                    </div>
-
-                    <div id="cuadroExtraDerecha">
-                    <div id="horasInicioFInal">
-                        <div class="columnaHoras">
-                    <p:outputLabel for="hinicio" value="Hora Inicio: " />
-                        <p:datePicker id="hinicio" value="#{AsignarUI.asignacion.horaInicio}" timeOnly="true" pattern="HH:mm"
-                                      stepMinute="60" required="true"/>
-                        </div>
-                        <div class="columnaHoras">
-                        <p:outputLabel for="hfin" value="Hora Fin: " />
-                        <p:datePicker id="hfin" value="#{AsignarUI.asignacion.horaFin}" timeOnly="true" pattern="HH:mm" stepMinute="60"
-                                      required="true"/>
-                        </div>
-                    </div>
-                    </div>
-
-                </div>
-
-
-            </h:form>
-        </div>
-
-            <div class="ladoDerecho">
-                <p:messages id="messages" showDetail="true" closable="true"/>
+                </h:form>
 
                 <h:form id="formularioDesasignacion">
+                    <p:messages id="messagesDesasignacion" showDetail="true" closable="true"/>
 
-                <p:selectOneRadio id="GrupoAsignaciones" value="#{AsignarUI.idAsignacionSelec}" layout="custom">
-                    <f:selectItems value="#{AsignarUI.listaAsignaciones}" var="asignacion" itemValue="#{asignacion.id}" itemLabel="#{asignacion.grupo}"/>
-                </p:selectOneRadio>
-                    <h2>Des-asignar Unidades</h2>
-                <table id="tablaAsignaciones">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Unidad</th>
-                        <th>Prof.Asignado</th>
-                        <th>Dia. Semana</th>
-                        <th>Grupo</th>
-                        <th>Horario</th>
-                        <th>    </th>
+                    <div class="seccion">
+                        <h2>Des-asignar unidades</h2>
+                        <p:selectOneRadio id="GrupoAsignaciones" value="#{AsignarUI.idAsignacionSelec}" layout="custom">
+                            <f:selectItems value="#{AsignarUI.listaAsignaciones}" var="asignacion" itemValue="#{asignacion.id}" itemLabel="#{asignacion.grupo}"/>
+                        </p:selectOneRadio>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <ui:repeat value="#{AsignarUI.listaAsignaciones}" var="Asignacion" varStatus="status" >
-                        <tr>
-                            <td>
-                                <h:outputText value="#{Asignacion.id}"/>
-                            </td>
-                            <td>
-                                <h:outputText value="#{Asignacion.idUnidad.nombre}"/>
-                            </td>
-                            <td>
-                                <h:outputText value="#{Asignacion.idProfesor.nombre} #{Asignacion.idProfesor.appaterno} #{Asignacion.idProfesor.apmaterno}"/>
-                            </td>
-                            <td>
-                                <h:outputText value="#{Asignacion.diaSemana}"/>
-                            </td>
+                        <table id="tablaAsignaciones" class="datosTabla">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Unidad</th>
+                                    <th>Prof. asignado</th>
+                                    <th>Dia semana</th>
+                                    <th>Grupo</th>
+                                    <th>Horario</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ui:repeat value="#{AsignarUI.listaAsignaciones}" var="Asignacion" varStatus="status">
+                                    <tr>
+                                        <td class="centro"><h:outputText value="#{Asignacion.id}"/></td>
+                                        <td class="centro"><h:outputText value="#{Asignacion.idUnidad.nombre}"/></td>
+                                        <td class="centro"><h:outputText value="#{Asignacion.idProfesor.nombre} #{Asignacion.idProfesor.appaterno} #{Asignacion.idProfesor.apmaterno}"/></td>
+                                        <td class="centro"><h:outputText value="#{Asignacion.diaSemana}"/></td>
+                                        <td class="centro"><h:outputText value="#{Asignacion.grupo}"/></td>
+                                        <td class="centro"><h:outputText value="#{Asignacion.horaInicio} - #{Asignacion.horaFin}"/></td>
+                                        <td class="centro"><p:radioButton for="@form:GrupoAsignaciones" itemIndex="#{status.index}"/></td>
+                                    </tr>
+                                </ui:repeat>
+                            </tbody>
+                        </table>
 
-                            <td>
-                                <h:outputText value="#{Asignacion.grupo}"/>
-                            </td>
-
-                            <td>
-                                <h:outputText value="#{Asignacion.horaInicio} - #{Asignacion.horaFin}"/>
-                            </td>
-                            <td>
-                                <p:radioButton for="@form:GrupoAsignaciones" itemIndex="#{status.index}"/>
-                            </td>
-                        </tr>
-                    </ui:repeat>
-                    </tbody>
-                </table>
-                    <h:commandButton value="Borrar Asignacion" action="#{AsignarUI.borrarAsignacionBD}"
-                                     onclick="return confirm('¿Eliminar asignacion seleccionada?')" style="
-                        background-color: #ff1c52;
-                        color: white;
-                        font-weight: bold;
-                        padding: 10px 20px;"/>
+                        <h:commandButton value="Borrar asignacion" action="#{AsignarUI.borrarAsignacionBD}"
+                                         onclick="return confirm('¿Eliminar asignacion seleccionada?')" style="
+                            background-color: #ff1c52;
+                            color: white;
+                            font-weight: bold;
+                            padding: 10px 20px;
+                            margin-top: 14px;"/>
+                    </div>
                 </h:form>
+
             </div>
 
-
         </main>
-
-
     </ui:define>
 </ui:composition>
