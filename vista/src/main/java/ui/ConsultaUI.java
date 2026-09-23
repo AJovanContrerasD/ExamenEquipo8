@@ -67,7 +67,10 @@ public class ConsultaUI implements Serializable {
     public String gruposAsignados(Profesor p){
         List<String> grupos = new ArrayList<>();
         for(Asignacion a : p.getAsignaciones()){
-            grupos.add(a.getGrupo());
+            String grupo = a.getGrupo();
+            if(!grupos.contains(grupo)){
+                grupos.add(grupo);
+            }
         }
         return String.join(", ", grupos);
     }

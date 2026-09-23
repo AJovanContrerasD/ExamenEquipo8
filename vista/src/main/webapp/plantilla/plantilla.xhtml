@@ -32,11 +32,8 @@
         }
         #titulo{
             text-align: left;
-            font-size:25px;
-            font-weight: bold;
-            background: -webkit-linear-gradient(270deg, #29c551, #8effc1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
         }
         #subtitulo{
             font-size:16px;
@@ -47,6 +44,10 @@
         #btnMenu{
             width: 30px;
             height: 30px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
         }
         #salirDiv{
             margin-left: auto;
@@ -140,7 +141,6 @@
         .fieldLarge{
             width: 100%;
             height: 35px;
-
             border: 2px solid #bfbfbf;
             box-shadow: 0px 2px 8px rgba(0,0,0,0.01);
             border-radius: 15px;
@@ -166,9 +166,7 @@
             border: none;
             margin-left: 20%;
             margin-right: 20%;
-
         }
-
         #btnAgregar:hover{
             background-color: #3dd666;
             transform: translateY(-2px);
@@ -184,7 +182,6 @@
             min-height: 500px;
             box-sizing: border-box;
         }
-
         .busqueda {
             display: flex;
             justify-content: space-between;
@@ -192,7 +189,6 @@
             margin-bottom: 20px;
             gap: 15px;
         }
-
         .busq {
             flex-grow: 1;
             padding: 10px 15px 10px 40px;
@@ -206,7 +202,6 @@
             outline: none;
             box-sizing: border-box;
         }
-
         .btn-registrar {
             background-color: #00aa4f;
             color: white;
@@ -217,7 +212,6 @@
             font-size: 16px;
             cursor: pointer;
         }
-
         .box-modificar {
             background-color: white;
             padding: 20px;
@@ -225,13 +219,11 @@
             border: 1px solid #bce2a8;
             margin-bottom: 20px;
         }
-
         .tabla {
             width: 100%;
             border-collapse: collapse;
             background-color: white;
         }
-
         .tabla th {
             text-align: center;
             background-color: #d1f7be;
@@ -241,7 +233,6 @@
             font-size: 16px;
             font-weight: bold;
         }
-
         .tabla td {
             text-align: center;
             padding: 12px;
@@ -250,21 +241,18 @@
             font-weight: bold;
             font-size: 16px;
         }
-
         .acciones {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
         }
-
         .btn-icono {
             background: none;
             border: none;
             cursor: pointer;
             padding: 0;
         }
-
         .btn-icono img {
             width: 24px;
             height: 24px;
@@ -279,16 +267,22 @@
 </h:head>
 <h:body>
     <header>
-        <div id="menu"> <button id="btnMenu" onclick="abrirSidebar()"> </button> </div>
+        <div id="menu">
+            <button id="btnMenu" onclick="abrirSidebar()">
+                <p:graphicImage url="resources/menu.png" style="width: 100%; height: 100%; object-fit: contain;" />
+            </button>
+        </div>
         <div id="logo"> </div>
         <div id="titleDiv">
-            <div id="titulo"> SAUAP </div>
+            <div id="titulo">
+                <p:graphicImage url="resources/Logo.png" alt="SAUAP" style="height: 40px; object-fit: contain;" />
+            </div>
             <div id="subtitulo"> <ui:insert name="subtitulo"> Subtitulo </ui:insert> </div>
         </div>
         <div id="salirDiv">
             <h:form id="formSalirHeader">
                 <h:commandLink id="salir" styleClass="btn-salir" actionListener="#{loginUI.logout()}">
-                    <p:graphicImage url="resources/icono-salir.png" />
+                    <p:graphicImage url="resources/salir.png" />
                     <h:outputText value="Cerrar sesion" />
                 </h:commandLink>
             </h:form>

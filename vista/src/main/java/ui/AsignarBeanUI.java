@@ -14,6 +14,7 @@ import mx.desarrollo.entity.Profesor;
 
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class AsignarBeanUI implements Serializable {
 
 
     private String diaSeleccionado;
+    private String tipoSeleccionado;
 
     private String horaInicioTexto;
     private String horaFinTexto;
@@ -112,6 +114,11 @@ public class AsignarBeanUI implements Serializable {
                 return;
             }
 
+            if(tipoSeleccionado == null || tipoSeleccionado.isEmpty()){
+                mensajeError("Favor de elegir el tipo de sesion (Clase, Taller o Laboratorio)");
+                return;
+            }
+
             if(asignacion.getHoraInicio() == null ||asignacion.getHoraFin() == null ){
                 mensajeError("Ingrese hora de salida y hora fin");
                 return;
@@ -134,15 +141,20 @@ public class AsignarBeanUI implements Serializable {
                 return;
             }
 
-           Integer auxIdProfesor = idProfesorElegido;
+            if(diaSeleccionado==null || diaSeleccionado.isEmpty()){
+                mensajeError("Favor de elegir un dia de la semana");
+                return;
+            }
 
-           List<Asignacion> asignacionesExistentes = helper.obtenerAsignacionesProf(auxIdProfesor);
-            LocalTime auxHInicio = asignacion.getHoraInicio();
-            LocalTime auxHFin = asignacion.getHoraFin();
+           Integer ayudaIdProfesor = idProfesorElegido;
+
+           List<Asignacion> asignacionesExistentes = helper.obtenerAsignacionesProf(ayudaIdProfesor);
+            LocalTime ayudaHInicio = asignacion.getHoraInicio();
+            LocalTime ayudaHFin = asignacion.getHoraFin();
 
             for(Asignacion i : asignacionesExistentes){
-               if(i.getDiaSemana().equals(asignacion.getDiaSemana())){
-                   if(auxHInicio.isBefore(i.getHoraFin()) && auxHFin.isAfter(i.getHoraInicio()))
+               if(i.getDiaSemana().equals(diaSeleccionado)){
+                   if(ayudaHInicio.isBefore(i.getHoraFin()) && ayudaHFin.isAfter(i.getHoraInicio()))
                    {
                        mensajeError("La hora ingresada se traslapa con otra materia registrada de " + i.getHoraInicio() + "-"+ i.getHoraFin());
                        return;
@@ -151,8 +163,68 @@ public class AsignarBeanUI implements Serializable {
 
            }
 
+            UnidadAprendizaje unidadElegida = listaUnidades.stream().filter(u -> u.getId().equals(idUnidadElegida))
+                            .findFirst().orElse(null);
 
+            if(unidadElegida == null){
+                mensajeError("No se encontro la Unidad de Aprendizaje seleccionada");
+                return;
+            }
 
+            double horasNuevas = Duration.between(ayudaHInicio, ayudaHFin).toMinutes() / 60.0;
+
+            if(horasNuevas > 4){
+                mensajeError("Una sola sesion no puede durar mas de 4 horas");
+                return;
+            }
+
+            double topeTipo;
+            switch (tipoSeleccionado){
+                case "Clase":
+                    topeTipo = unidadElegida.getHorasClase();
+                    break;
+                case "Taller":
+                    topeTipo = unidadElegida.getHorasTaller();
+                    break;
+                case "Laboratorio":
+                    topeTipo = unidadElegida.getHorasLaboratorio();
+                    break;
+                default:
+                    mensajeError("El tipo de sesion seleccionado no es valido");
+                    return;
+            }
+
+            if(topeTipo > 4){
+                topeTipo = 4;
+            }
+
+            double horasYaAsignadasTipo = 0;
+            for(Asignacion a : listaAsignaciones){
+                if(a.getIdUnidad().getId().equals(idUnidadElegida)
+                        && a.getGrupo().equals(asignacion.getGrupo())
+                        && a.getTipo().equals(tipoSeleccionado)){
+                    horasYaAsignadasTipo += Duration.between(a.getHoraInicio(), a.getHoraFin()).toMinutes() / 60.0;
+                }
+            }
+
+            if(horasYaAsignadasTipo + horasNuevas > topeTipo){
+                double horasDisponibles = topeTipo - horasYaAsignadasTipo;
+                mensajeError("El grupo " + asignacion.getGrupo() + " de esta unidad ya tiene " + horasYaAsignadasTipo
+                        + " hrs asignadas de " + tipoSeleccionado + ". Solo quedan " + horasDisponibles
+                        + " hrs disponibles de un tope de " + topeTipo + " hrs para este tipo de sesion.");
+                return;
+            }
+
+            for(Asignacion a : listaAsignaciones){
+                if(a.getIdUnidad().getId().equals(idUnidadElegida)
+                        && a.getGrupo().equals(asignacion.getGrupo())
+                        && a.getDiaSemana().equals(diaSeleccionado)
+                        && !a.getTipo().equals(tipoSeleccionado)){
+                    mensajeError("El dia " + diaSeleccionado + " ya tiene registrado " + a.getTipo()
+                            + " para el grupo " + asignacion.getGrupo() + ". No se pueden mezclar tipos de sesion (clase, taller, laboratorio) el mismo dia, deben repartirse entre los dias de la semana.");
+                    return;
+                }
+            }
 
             Administrador administrador = loginUI.getUsuario();
             asignacion.setIdAdministrador(administrador);
@@ -161,22 +233,15 @@ public class AsignarBeanUI implements Serializable {
                             .findFirst().orElse(null);
             asignacion.setIdProfesor(profesorElegido);
 
-            UnidadAprendizaje unidadElegida = listaUnidades.stream().filter(u -> u.getId().equals(idUnidadElegida))
-                            .findFirst().orElse(null);
             asignacion.setIdUnidad(unidadElegida);
 
 
     asignacion.setGrupo(asignacion.getGrupo());
 
-    asignacion.setIdUnidad(asignacion.getIdUnidad());
     asignacion.setSemestre(asignacion.getSemestre());
 
-    if(diaSeleccionado==null || diaSeleccionado.isEmpty()){
-        mensajeError("Favor de elegir un dia de la semana");
-        return;
-    }
-
     asignacion.setDiaSemana(diaSeleccionado);
+    asignacion.setTipo(tipoSeleccionado);
     asignacion.setHoraInicio(asignacion.getHoraInicio());
     asignacion.setHoraFin(asignacion.getHoraFin());
     helper.registrarAsignacion(asignacion);
@@ -199,6 +264,7 @@ public class AsignarBeanUI implements Serializable {
         idUnidadElegida = null;
         if(diaSeleccionado!=null)
         diaSeleccionado =null;
+        tipoSeleccionado = null;
 
         asignacion = new Asignacion();
     }
@@ -240,8 +306,15 @@ public class AsignarBeanUI implements Serializable {
         this.diaSeleccionado = diaSeleccionado;
     }
 
+    public String getTipoSeleccionado() {
+        return tipoSeleccionado;
+    }
+
+    public void setTipoSeleccionado(String tipoSeleccionado) {
+        this.tipoSeleccionado = tipoSeleccionado;
+    }
+
     public Integer getIdAsignacionSelec() {return idAsignacionSelec;}
 
     public void setIdAsignacionSelec(Integer idAsignacionSelec) {this.idAsignacionSelec = idAsignacionSelec;}
 }
-

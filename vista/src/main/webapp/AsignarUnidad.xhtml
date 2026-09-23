@@ -151,6 +151,16 @@
                                 <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
                             </p:selectOneRadio>
                         </div>
+
+                        <div class="campoFormu" style="margin-top: 14px;">
+                            <p:outputLabel value="Tipo de sesion" />
+                            <br/>
+                            <p:selectOneRadio value="#{AsignarUI.tipoSeleccionado}" layout="grid" columns="3">
+                                <f:selectItem itemLabel="Clase" itemValue="Clase" />
+                                <f:selectItem itemLabel="Taller" itemValue="Taller" />
+                                <f:selectItem itemLabel="Laboratorio" itemValue="Laboratorio" />
+                            </p:selectOneRadio>
+                        </div>
                     </div>
 
                     <div class="btnGuardar">
@@ -177,6 +187,7 @@
                                     <th>ID</th>
                                     <th>Unidad</th>
                                     <th>Prof. asignado</th>
+                                    <th>Tipo</th>
                                     <th>Dia semana</th>
                                     <th>Grupo</th>
                                     <th>Horario</th>
@@ -189,6 +200,7 @@
                                         <td class="centro"><h:outputText value="#{Asignacion.id}"/></td>
                                         <td class="centro"><h:outputText value="#{Asignacion.idUnidad.nombre}"/></td>
                                         <td class="centro"><h:outputText value="#{Asignacion.idProfesor.nombre} #{Asignacion.idProfesor.appaterno} #{Asignacion.idProfesor.apmaterno}"/></td>
+                                        <td class="centro"><h:outputText value="#{Asignacion.tipo}"/></td>
                                         <td class="centro"><h:outputText value="#{Asignacion.diaSemana}"/></td>
                                         <td class="centro"><h:outputText value="#{Asignacion.grupo}"/></td>
                                         <td class="centro"><h:outputText value="#{Asignacion.horaInicio} - #{Asignacion.horaFin}"/></td>

@@ -44,6 +44,11 @@ public class Asignacion {
     @Column(name = "diasemana", nullable = false, length = 15)
     private String diaSemana;
 
+    @Size(max = 15)
+    @NotNull
+    @Column(name = "tipo", nullable = false, length = 15)
+    private String tipo;
+
     @NotNull
     @Column(name = "horainicio", nullable = false)
     private LocalTime horaInicio;
@@ -106,6 +111,14 @@ public class Asignacion {
 
     public void setDiaSemana(String diaSemana) {
         this.diaSemana = diaSemana;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public LocalTime getHoraInicio() {
