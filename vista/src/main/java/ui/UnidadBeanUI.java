@@ -6,8 +6,11 @@
 package ui;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import mx.desarrollo.entity.Asignacion;
 import mx.desarrollo.entity.UnidadAprendizaje;
 import mx.desarrollo.integration.ServiceFacadeLocator;
 
@@ -50,8 +53,26 @@ public class UnidadBeanUI implements Serializable{
     }
 
     public void eliminar(UnidadAprendizaje unidad){
-        ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().eliminarUnidadAprendizaje(unidad);
-        unidades = ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
+        List<Asignacion> asignacionesDeLaUnidad =
+                ServiceFacadeLocator.getInstanceFacadeAsignacion().obtenerAsignacionesPorUnidad(unidad.getId());
+
+        if(asignacionesDeLaUnidad != null && !asignacionesDeLaUnidad.isEmpty()){
+            mensajeError("No se puede eliminar la unidad '" + unidad.getNombre() + "' porque tiene "
+                    + asignacionesDeLaUnidad.size() + " asignacion(es) registrada(s). Elimine o reasigne primero esas asignaciones.");
+            return;
+        }
+
+        try{
+            ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().eliminarUnidadAprendizaje(unidad);
+            unidades = ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().findAll();
+        } catch (Exception ex){
+            mensajeError("No se pudo eliminar la unidad. Verifique que no tenga registros relacionados.");
+        }
+    }
+
+    private void mensajeError(String textoMensaje){
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", textoMensaje));
     }
 
     public List<UnidadAprendizaje> getListaUnidades(){

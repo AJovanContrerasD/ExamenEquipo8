@@ -23,6 +23,10 @@ public class DelegateUnidadAprendizaje {
 
     }
 
+    public UnidadAprendizaje findByNombre(String nombre){
+        return ServiceLocator.getInstanceUnidadAprendizajeDAO().findByOneParameterUnique(nombre, "nombre");
+    }
+
     public List<UnidadAprendizaje> findAll(){
         return ServiceLocator.getInstanceUnidadAprendizajeDAO().findAll();
     }

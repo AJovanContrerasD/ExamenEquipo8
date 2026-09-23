@@ -38,6 +38,10 @@ public class DelegateAsignacion {
         return ServiceLocator.getInstanceAsignacionDAO().findFromWhere("idProfesor", "id",String.valueOf(idProfesor));
     }
 
+    public List<Asignacion> getAsignacionesPorUnidad(Integer idUnidad){
+        return ServiceLocator.getInstanceAsignacionDAO().findFromWhere("idUnidad", "id",String.valueOf(idUnidad));
+    }
+
 
 
     public List<Asignacion> findAll(){

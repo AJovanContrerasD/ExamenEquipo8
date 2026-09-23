@@ -27,4 +27,8 @@ public class DelegateProfesor {
         return ServiceLocator.getInstanceProfesorDAO().findAll();
     }
 
+    public Profesor findByRfc(String rfc){
+        return ServiceLocator.getInstanceProfesorDAO().findByOneParameterUnique(rfc, "rfc");
+    }
+
 }
