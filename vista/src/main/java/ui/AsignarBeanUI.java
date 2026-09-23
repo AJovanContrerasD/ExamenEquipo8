@@ -105,10 +105,11 @@ public class AsignarBeanUI implements Serializable {
                 mensajeError("Favor de elegir una Unidad de Aprendizaje");
                 return;
             }
-            if(asignacion.getGrupo() == null){
+            if(asignacion.getGrupo() == null || asignacion.getGrupo().trim().isEmpty()){
                 mensajeError("Favor de ingresar Grupo");
                 return;
             }
+            asignacion.setGrupo(asignacion.getGrupo().trim());
             if(asignacion.getSemestre() == null){
                 mensajeError("Ingresar Semestre");
                 return;
@@ -209,7 +210,9 @@ public class AsignarBeanUI implements Serializable {
 
             if(horasYaAsignadasTipo + horasNuevas > topeTipo){
                 double horasDisponibles = topeTipo - horasYaAsignadasTipo;
-                mensajeError("El grupo " + asignacion.getGrupo() + " de esta unidad ya tiene " + horasYaAsignadasTipo + " hrs asignadas de " + tipoSeleccionado + ". Solo quedan " + horasDisponibles + " hrs disponibles de un tope de " + topeTipo + " hrs para este tipo de sesion.");
+                mensajeError("El grupo " + asignacion.getGrupo() + " de esta unidad ya tiene " + horasYaAsignadasTipo
+                        + " hrs asignadas de " + tipoSeleccionado + ". Solo quedan " + horasDisponibles
+                        + " hrs disponibles de un tope de " + topeTipo + " hrs para este tipo de sesion.");
                 return;
             }
 
@@ -218,7 +221,8 @@ public class AsignarBeanUI implements Serializable {
                         && a.getGrupo().equals(asignacion.getGrupo())
                         && a.getDiaSemana().equals(diaSeleccionado)
                         && !a.getTipo().equals(tipoSeleccionado)){
-                    mensajeError("El dia " + diaSeleccionado + " ya tiene registrado " + a.getTipo() + " para el grupo " + asignacion.getGrupo() + ". No se pueden mezclar varios tipos de sesion  el mismo dia.");
+                    mensajeError("El dia " + diaSeleccionado + " ya tiene registrado " + a.getTipo()
+                            + " para el grupo " + asignacion.getGrupo() + ". No se pueden mezclar tipos de sesion (clase, taller, laboratorio) el mismo dia, deben repartirse entre los dias de la semana.");
                     return;
                 }
             }
@@ -227,7 +231,10 @@ public class AsignarBeanUI implements Serializable {
                 if(a.getIdUnidad().getId().equals(idUnidadElegida)
                         && a.getGrupo().equals(asignacion.getGrupo())
                         && !a.getIdProfesor().getId().equals(idProfesorElegido)){
-                    mensajeError("El grupo " + asignacion.getGrupo() + " de esta unidad ya tiene asignado al profesor " + a.getIdProfesor().getNombre() + " " + a.getIdProfesor().getAppaterno()+ " (" + a.getTipo() + "). Todas las sesiones de un mismo grupo en la misma unidad deben ser impartidas por el mismo profesor.");
+                    mensajeError("El grupo " + asignacion.getGrupo() + " de esta unidad ya tiene asignado al profesor "
+                            + a.getIdProfesor().getNombre() + " " + a.getIdProfesor().getAppaterno()
+                            + " (" + a.getTipo() + "). Todas las sesiones (clase, taller, laboratorio) de un mismo grupo "
+                            + "en la misma unidad deben ser impartidas por el mismo profesor.");
                     return;
                 }
             }
@@ -254,6 +261,7 @@ public class AsignarBeanUI implements Serializable {
             this.listaAsignaciones = helper.obtenerAsignaciones();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Asignacion Registrada", "La asignacion fue registrada correctamente!"));
+        reiniciarFormulario();
         } catch (Exception e){
             e.printStackTrace();
             mensajeError("No se pudo registrar la Asignatura");
