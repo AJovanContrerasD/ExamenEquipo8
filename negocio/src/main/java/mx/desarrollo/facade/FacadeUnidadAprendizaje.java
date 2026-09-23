@@ -29,6 +29,10 @@ public class FacadeUnidadAprendizaje {
         return delegateUnidadAprendizaje.getTodasUnidades();
     }
 
+    public UnidadAprendizaje obtenerUnidadPorNombre(String nombre){
+        return delegateUnidadAprendizaje.findByNombre(nombre);
+    }
+
     public List<UnidadAprendizaje> findAll(){
         return delegateUnidadAprendizaje.findAll();
     }

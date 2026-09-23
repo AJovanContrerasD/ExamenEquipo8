@@ -14,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import mx.desarrollo.entity.Administrador;
 import mx.desarrollo.entity.Profesor;
+import mx.desarrollo.integration.ServiceFacadeLocator;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -42,8 +43,25 @@ public class regProfesorBeanUI implements Serializable{
 
     public void registrar() throws IOException{
         try{
+            if(profesor.getRfc() != null){
+                profesor.setRfc(profesor.getRfc().trim().toUpperCase());
+            }
+
+            if(profesor.getRfc() == null || profesor.getRfc().isEmpty()){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "ERROR", "Favor de ingresar el RFC del profesor"));
+                return;
+            }
+
+            Profesor existente = ServiceFacadeLocator.getInstanceFacadeProfesor().obtenerProfesorPorRfc(profesor.getRfc());
+            if(existente != null){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "ERROR", "Ya existe un profesor registrado con el RFC " + profesor.getRfc()
+                        + " (" + existente.getNombre() + " " + existente.getAppaterno() + ")"));
+                return;
+            }
+
             Administrador administrador = loginUI.getUsuario();
-            profesor.setRfc(profesor.getRfc());
             profesor.setIdAdministrador(administrador);
 
             regProfesorHelper.registrar(profesor);

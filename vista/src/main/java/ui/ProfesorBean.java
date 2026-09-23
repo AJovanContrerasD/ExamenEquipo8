@@ -1,9 +1,12 @@
 package ui;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import mx.desarrollo.integration.ServiceFacadeLocator;
+import mx.desarrollo.entity.Asignacion;
 import mx.desarrollo.entity.Profesor;
 
 import java.io.Serializable;
@@ -42,8 +45,27 @@ public class ProfesorBean implements Serializable {
     }
 
     public void elim(Profesor profesor){
-        ServiceFacadeLocator.getInstanceFacadeProfesor().eliminarProfesor(profesor);
-        profesores = ServiceFacadeLocator.getInstanceFacadeProfesor().findAll();
+        List<Asignacion> asignacionesDelProfesor =
+                ServiceFacadeLocator.getInstanceFacadeAsignacion().obtenerAsignacionesProf(profesor.getId());
+
+        if(asignacionesDelProfesor != null && !asignacionesDelProfesor.isEmpty()){
+            mensajeError("No se puede eliminar al profesor " + profesor.getNombre() + " " + profesor.getAppaterno()
+                    + " porque tiene " + asignacionesDelProfesor.size()
+                    + " asignacion(es) registrada(s). Elimine o reasigne primero esas asignaciones.");
+            return;
+        }
+
+        try{
+            ServiceFacadeLocator.getInstanceFacadeProfesor().eliminarProfesor(profesor);
+            profesores = ServiceFacadeLocator.getInstanceFacadeProfesor().findAll();
+        } catch (Exception ex){
+            mensajeError("No se pudo eliminar al profesor. Verifique que no tenga registros relacionados.");
+        }
+    }
+
+    private void mensajeError(String textoMensaje){
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", textoMensaje));
     }
 
     public List<Profesor> getListaProfesores(){

@@ -32,6 +32,9 @@ public class FacadeAsignacion {
     public List<Asignacion> obtenerAsignacionesProf(Integer idProfesor){ return delegateAsignacion.getAsignacionesPorProf(idProfesor);
     }
 
+    public List<Asignacion> obtenerAsignacionesPorUnidad(Integer idUnidad){ return delegateAsignacion.getAsignacionesPorUnidad(idUnidad);
+    }
+
 
     public List<Asignacion> findAll(){
         return delegateAsignacion.findAll();

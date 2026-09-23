@@ -29,6 +29,10 @@ public class FacadeProfesor {
         return delegateProfesor.getTodosProfesores();
     }
 
+    public Profesor obtenerProfesorPorRfc(String rfc){
+        return delegateProfesor.findByRfc(rfc);
+    }
+
     public List<Profesor> findAll(){
         return delegateProfesor.findAll();
     }

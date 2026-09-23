@@ -14,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import mx.desarrollo.entity.Administrador;
 import mx.desarrollo.entity.UnidadAprendizaje;
+import mx.desarrollo.integration.ServiceFacadeLocator;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -43,6 +44,23 @@ public class regUnidadBeanUI implements Serializable{
 
     public void registrar() throws IOException{
         try{
+            if(unidad.getNombre() != null){
+                unidad.setNombre(unidad.getNombre().trim());
+            }
+
+            if(unidad.getNombre() == null || unidad.getNombre().isEmpty()){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "ERROR", "Favor de ingresar el nombre de la unidad de aprendizaje"));
+                return;
+            }
+
+            UnidadAprendizaje existente = ServiceFacadeLocator.getInstanceFacadeUnidadAprendizaje().obtenerUnidadPorNombre(unidad.getNombre());
+            if(existente != null){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "ERROR", "Ya existe una unidad de aprendizaje registrada con el nombre '" + unidad.getNombre() + "'"));
+                return;
+            }
+
             Administrador administrador = loginUI.getUsuario();
             unidad.setIdAdministrador(administrador);
 
